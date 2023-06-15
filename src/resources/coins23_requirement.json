@@ -1,0 +1,499 @@
+{
+  "name": "情報学群情報科学類",
+  "creditRange": {
+    "min": 125,
+    "max": 125
+  },
+  "children": [
+    {
+      "name": "専門科目",
+      "creditRange": {
+        "min": 50,
+        "max": 50
+      },
+      "children": [
+        {
+          "name": "必修科目",
+          "creditRange": {
+            "min": 16,
+            "max": 16
+          },
+          "children": [
+            {
+              "name": "主専攻実験A",
+              "creditRange": {
+                "min": 3,
+                "max": 3
+              },
+              "courseList": [
+                "GB26403",
+                "GB36403",
+                "GB46403"
+              ]
+            },
+            {
+              "name": "主専攻実験B",
+              "creditRange": {
+                "min": 3,
+                "max": 3
+              },
+              "courseList": [
+                "GB26503",
+                "GB36503",
+                "GB46503"
+              ]
+            },
+            {
+              "name": "卒業研究A",
+              "creditRange": {
+                "min": 3,
+                "max": 3
+              },
+              "courseList": [
+                "GB19948"
+              ]
+            },
+            {
+              "name": "卒業研究B",
+              "creditRange": {
+                "min": 3,
+                "max": 3
+              },
+              "courseList": [
+                "GB19958"
+              ]
+            },
+            {
+              "name": "専門語学A",
+              "creditRange": {
+                "min": 2,
+                "max": 2
+              },
+              "courseList": [
+                "GB19091"
+              ]
+            },
+            {
+              "name": "専門語学B",
+              "creditRange": {
+                "min": 2,
+                "max": 2
+              },
+              "courseList": [
+                "GB19101"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "選択科目",
+          "creditRange": {
+            "min": 34,
+            "max": 34
+          },
+          "children": [
+            {
+              "name": "科目番号がGB20, GB30, GB40で始まる科目",
+              "creditRange": {
+                "min": 16
+              },
+              "courseFilter": "^(GB20|GB30|GB40)[0-9A-Z]+$"
+            },
+            {
+              "name": "科目番号がGB2, GB3, GB4, GA4で始まる科目",
+              "creditRange": {
+                "min": 0,
+                "max": 18
+              },
+              "courseFilter": "^(GB2|GB3|GB4|GA4)[0-9A-Z]+$",
+              "children": [
+                {
+                  "name": "情報科学特別演習",
+                  "creditRange": {
+                    "min": 0,
+                    "max": 2
+                  },
+                  "courseList": [
+                    "GB13332"
+                  ]
+                },
+                {
+                  "name": "情報特別演習I",
+                  "creditRange": {
+                    "min": 0,
+                    "max": 2
+                  },
+                  "courseList": [
+                    "GB13312"
+                  ]
+                },
+                {
+                  "name": "情報特別演習II",
+                  "creditRange": {
+                    "min": 0,
+                    "max": 2
+                  },
+                  "courseList": [
+                    "GB13322"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "専門基礎科目",
+      "creditRange": {
+        "min": 52,
+        "max": 52
+      },
+      "children": [
+        {
+          "name": "必修科目",
+          "creditRange": {
+            "min": 26,
+            "max": 26
+          },
+          "children": [
+            {
+              "name": "線形代数A",
+              "creditRange": {
+                "min": 2,
+                "max": 2
+              },
+              "courseList": [
+                "GA15211",
+                "GA15221"
+              ]
+            },
+            {
+              "name": "線形代数B",
+              "creditRange": {
+                "min": 2,
+                "max": 2
+              },
+              "courseList": [
+                "GB10234",
+                "GB10244"
+              ]
+            },
+            {
+              "name": "微分積分A",
+              "creditRange": {
+                "min": 2,
+                "max": 2
+              },
+              "courseList": [
+                "GA15311",
+                "GA15321"
+              ]
+            },
+            {
+              "name": "微分積分B",
+              "creditRange": {
+                "min": 2,
+                "max": 2
+              },
+              "courseList": [
+                "GB10444",
+                "GB10454"
+              ]
+            },
+            {
+              "name": "情報数学A",
+              "creditRange": {
+                "min": 2,
+                "max": 2
+              },
+              "courseList": [
+                "GA15111",
+                "GA15121"
+              ]
+            },
+            {
+              "name": "専門英語基礎",
+              "creditRange": {
+                "min": 1,
+                "max": 1
+              },
+              "courseList": [
+                "GB19061"
+              ]
+            },
+            {
+              "name": "プログラミング入門A",
+              "creditRange": {
+                "min": 2,
+                "max": 2
+              },
+              "courseList": [
+                "GA18212"
+              ]
+            },
+            {
+              "name": "プログラミング入門B",
+              "creditRange": {
+                "min": 1,
+                "max": 1
+              },
+              "courseList": [
+                "GA18312"
+              ]
+            },
+            {
+              "name": "コンピュータとプログラミング",
+              "creditRange": {
+                "min": 3,
+                "max": 3
+              },
+              "courseList": [
+                "GB11964"
+              ]
+            },
+            {
+              "name": "データ構造とアルゴリズム",
+              "creditRange": {
+                "min": 3,
+                "max": 3
+              },
+              "courseList": [
+                "GB11931"
+              ]
+            },
+            {
+              "name": "データ構造とアルゴリズム実験",
+              "creditRange": {
+                "min": 2,
+                "max": 2
+              },
+              "courseList": [
+                "GB11956",
+                "GB11966"
+              ]
+            },
+            {
+              "name": "論理回路",
+              "creditRange": {
+                "min": 2,
+                "max": 2
+              },
+              "courseList": [
+                "GB10804"
+              ]
+            },
+            {
+              "name": "論理回路実験",
+              "creditRange": {
+                "min": 2,
+                "max": 2
+              },
+              "courseList": [
+                "GB12017"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "選択科目",
+          "creditRange": {
+            "min": 26,
+            "max": 26
+          },
+          "children": [
+            {
+              "name": "区分1",
+              "creditRange": {
+                "min": 8
+              },
+              "courseList": [
+                "GB11601",
+                "GB11621",
+                "GB12301",
+                "GB12601",
+                "GB12801",
+                "GB12812"
+              ]
+            },
+            {
+              "name": "区分2",
+              "creditRange": {
+                "min": 2
+              },
+              "courseList": [
+                "GB13614",
+                "GB13624"
+              ]
+            },
+            {
+              "name": "科目番号がGB1で始まる科目（ただし、情報科学特別演習、情報特別演習I、情報特別演習IIは除く）",
+              "creditRange": {
+                "min": 4
+              },
+              "courseFilter": "^GB1[0-9A-Z]+$"
+            },
+            {
+              "name": "科目番号がGA1で始まる科目",
+              "creditRange": {
+                "min": 8
+              },
+              "courseFilter": "^GA1[0-9A-Z]+$"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "基礎科目",
+      "creditRange": {
+        "min": 23,
+        "max": 23
+      },
+      "children": [
+        {
+          "name": "共通科目",
+          "creditRange": {
+            "min": 13,
+            "max": 17
+          },
+          "children": [
+            {
+              "name": "必修科目",
+              "creditRange": {
+                "min": 12,
+                "max": 12
+              },
+              "children": [
+                {
+                  "name": "総合科目（ファーストイヤーセミナー、学問への誘い）",
+                  "creditRange": {
+                    "min": 2,
+                    "max": 2
+                  },
+                  "courseList": [
+                    "1118102",
+                    "1118202",
+                    "1118302",
+                    "1118402",
+                    "1227571",
+                    "1227581",
+                    "1227591",
+                    "1227601"
+                  ]
+                },
+                {
+                  "name": "体育",
+                  "creditRange": {
+                    "min": 2,
+                    "max": 2
+                  },
+                  "courseFilter": "^2[12][0-9A-Z]+$"
+                },
+                {
+                  "name": "外国語（英語）",
+                  "creditRange": {
+                    "min": 2,
+                    "max": 2
+                  },
+                  "courseFilter": "^31[HJKL]G(0[1-9]|1[0-2])2$"
+                },
+                {
+                  "name": "情報",
+                  "creditRange": {
+                    "min": 2,
+                    "max": 2
+                  },
+                  "courseList": [
+                    "6124101",
+                    "6424102",
+                    "6424202",
+                    "6524102",
+                    "6524202"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "選択科目",
+              "creditRange": {
+                "min": 1,
+                "max": 5
+              },
+              "children": [
+                {
+                  "name": "総合科目（学士基盤科目）",
+                  "creditRange": {
+                    "min": 1
+                  },
+                  "courseFilter": "^(122[^78]|12[^2]|14)[0-9A-Z]+$"
+                },
+                {
+                  "name": "区分1",
+                  "creditRange": {
+                    "min": 0,
+                    "max": 4
+                  },
+                  "children": [
+                    {
+                      "name": "体育",
+                      "creditRange": {
+                        "min": 0
+                      },
+                      "courseFilter": "^23[0-9A-Z]+$"
+                    },
+                    {
+                      "name": "外国語",
+                      "creditRange": {
+                        "min": 0
+                      },
+                      "courseFilter": "^3[0-9A-Z]+$"
+                    },
+                    {
+                      "name": "国語",
+                      "creditRange": {
+                        "min": 0
+                      },
+                      "courseFilter": "^5[0-9A-Z]+$"
+                    },
+                    {
+                      "name": "芸術",
+                      "creditRange": {
+                        "min": 0
+                      },
+                      "courseFilter": "^4[0-9A-Z]+$"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "関連科目",
+          "creditRange": {
+            "min": 6,
+            "max": 10
+          },
+          "children": [
+            {
+              "name": "「E、F、G、Hで始まる科目、共通科目及び教職に関する科目」以外の科目",
+              "creditRange": {
+                "min": 6
+              },
+              "courseFilter": "^[^1-69EFGH][0-9A-Z]+$"
+            },
+            {
+              "name": "E、F、GC、GE、Hで始まる科目",
+              "creditRange": {
+                "min": 0,
+                "max": 4
+              },
+              "courseFilter": "^(E|F|GC|GE|H)[0-9A-Z]+$"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

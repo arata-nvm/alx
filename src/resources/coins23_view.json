@@ -1,0 +1,380 @@
+[
+  {
+    "name": "専門科目",
+    "children": [
+      {
+        "name": "区分1",
+        "courseList": [
+          "GB26403",
+          "GB26503",
+          "GB36403",
+          "GB36503",
+          "GB46403",
+          "GB46503",
+          "GB19948",
+          "GB19958",
+          "GB19091",
+          "GB19101"
+        ]
+      },
+      {
+        "name": "GB20,GB30,GB40で始まる科目",
+        "courseFilter": "^GB[234]0[0-9A-Z]+$"
+      },
+      {
+        "name": "GB2,GB3,GB4,GA4で始まる科目",
+        "courseFilter": "^G(B2|B3|B4|A4)[0-9A-Z]+$"
+      }
+    ]
+  },
+  {
+    "name": "専門基礎科目",
+    "children": [
+      {
+        "name": "区分1",
+        "courseList": [
+          "GA15211",
+          "GA15221",
+          "GB10234",
+          "GB10244",
+          "GA15311",
+          "GA15321",
+          "GB10444",
+          "GB10454",
+          "GA15111",
+          "GA15121",
+          "GB19061",
+          "GA18212",
+          "GA18312",
+          "GB11964",
+          "GB11931",
+          "GB11956",
+          "GB11966",
+          "GB10804",
+          "GB12017",
+          "GB11601",
+          "GB11621",
+          "GB12301",
+          "GB12601",
+          "GB12801",
+          "GB12812",
+          "GB13614",
+          "GB13624"
+        ]
+      },
+      {
+        "name": "GB1で始まる科目",
+        "courseFilter": "^GB1[0-9A-Z]+$"
+      },
+      {
+        "name": "GA1で始まる科目",
+        "courseFilter": "^GA1[0-9A-Z]+$"
+      }
+    ]
+  },
+  {
+    "name": "基礎共通科目",
+    "children": [
+      {
+        "name": "必修科目",
+        "isDisabled": true
+      },
+      {
+        "name": "総合科目",
+        "children": [
+          {
+            "name": "ファーストイヤーセミナー",
+            "courseFilter": "^11[0-9A-Z]+$"
+          },
+          {
+            "name": "学問への誘い",
+            "courseFilter": "^122[78][0-9A-Z]+$"
+          }
+        ]
+      },
+      {
+        "name": "体育（必修）",
+        "children": [
+          {
+            "name": "基礎体育",
+            "courseFilter": "^21[0-9A-Z]+$"
+          },
+          {
+            "name": "応用体育",
+            "courseFilter": "^22[0-9A-Z]+$"
+          }
+        ]
+      },
+      {
+        "name": "外国語（英語）",
+        "children": [
+          {
+            "name": "ERS I",
+            "courseFilter": "^31H[0-9A-Z]+$"
+          },
+          {
+            "name": "ERS II",
+            "courseFilter": "^31K[0-9A-Z]+$"
+          },
+          {
+            "name": "EPS I",
+            "courseFilter": "^31J[0-9A-Z]+$"
+          },
+          {
+            "name": "EPS II",
+            "courseFilter": "^31L[0-9A-Z]+$"
+          }
+        ]
+      },
+      {
+        "name": "情報",
+        "children": [
+          {
+            "name": "情報リテラシー(講義)",
+            "courseFilter": "^61[0-9A-Z]+$"
+          },
+          {
+            "name": "情報リテラシー(演習)",
+            "courseFilter": "^64[0-9A-Z]+$"
+          },
+          {
+            "name": "データサイエンス",
+            "courseFilter": "^65[0-9A-Z]+$"
+          }
+        ]
+      },
+      {
+        "name": "選択科目",
+        "isDisabled": true
+      },
+      {
+        "name": "学士基盤科目",
+        "courseFilter": "^(122[^78]|12[^2]|14)[0-9A-Z]+$"
+      },
+      {
+        "name": "体育（選択）",
+        "courseFilter": "^23[0-9A-Z]+$"
+      },
+      {
+        "name": "外国語",
+        "children": [
+          {
+            "name": "ドイツ語",
+            "courseFilter": "^32[0-9A-Z]+$"
+          },
+          {
+            "name": "フランス語",
+            "courseFilter": "^33[0-9A-Z]+$"
+          },
+          {
+            "name": "中国語",
+            "courseFilter": "^34[0-9A-Z]+$"
+          },
+          {
+            "name": "ロシア語",
+            "courseFilter": "^35[0-9A-Z]+$"
+          },
+          {
+            "name": "スペイン語",
+            "courseFilter": "^36[0-9A-Z]+$"
+          },
+          {
+            "name": "朝鮮語",
+            "courseFilter": "^37[0-9A-Z]+$"
+          },
+          {
+            "name": "その他",
+            "courseFilter": "^39[0-9A-Z]+$"
+          }
+        ]
+      },
+      {
+        "name": "国語",
+        "courseList": [
+          "5108071",
+          "5208021"
+        ]
+      },
+      {
+        "name": "芸術",
+        "courseFilter": "^4[0-9A-Z]+$"
+      }
+    ]
+  },
+  {
+    "name": "基礎関連科目",
+    "children": [
+      {
+        "name": "文系",
+        "isDisabled": true
+      },
+      {
+        "name": "人文・文化学群",
+        "children": [
+          {
+            "name": "学群",
+            "courseFilter": "^AA[0-9A-Z]+$"
+          },
+          {
+            "name": "人文学類",
+            "courseFilter": "^AB[0-9A-Z]+$"
+          },
+          {
+            "name": "比較文化学類",
+            "courseFilter": "^AC[0-9A-Z]+$"
+          },
+          {
+            "name": "日本語・日本文化学類",
+            "courseFilter": "^AE[0-9A-Z]+$"
+          }
+        ]
+      },
+      {
+        "name": "社会・国際学群",
+        "children": [
+          {
+            "name": "学群",
+            "courseFilter": "^BA[0-9A-Z]+$"
+          },
+          {
+            "name": "社会学類",
+            "courseFilter": "^BB[0-9A-Z]+$"
+          },
+          {
+            "name": "国際総合学類",
+            "courseFilter": "^BC[0-9A-Z]+$"
+          }
+        ]
+      },
+      {
+        "name": "人間学群",
+        "children": [
+          {
+            "name": "学群",
+            "courseFilter": "^CA[0-9A-Z]+$"
+          },
+          {
+            "name": "教育学類",
+            "courseFilter": "^CB[0-9A-Z]+$"
+          },
+          {
+            "name": "心理学類",
+            "courseFilter": "^CC[0-9A-Z]+$"
+          },
+          {
+            "name": "障害科学類",
+            "courseFilter": "^CE[0-9A-Z]+$"
+          }
+        ]
+      },
+      {
+        "name": "体育専門学群",
+        "courseFilter": "^W[0-9A-Z]+$"
+      },
+      {
+        "name": "芸術専門学群",
+        "courseFilter": "^Y[0-9A-Z]+$"
+      },
+      {
+        "name": "理系",
+        "isDisabled": true
+      },
+      {
+        "name": "生命環境学群",
+        "children": [
+          {
+            "name": "学群",
+            "courseFilter": "^EZ[0-9A-Z]+$"
+          },
+          {
+            "name": "生命学類",
+            "courseFilter": "^EB[0-9A-Z]+$"
+          },
+          {
+            "name": "生命環境学類",
+            "courseFilter": "^EC[0-9A-Z]+$"
+          },
+          {
+            "name": "地球学類",
+            "courseFilter": "^EE[0-9A-Z]+$"
+          }
+        ]
+      },
+      {
+        "name": "理工学群",
+        "children": [
+          {
+            "name": "学群",
+            "courseFilter": "^FA[0-9A-Z]+$"
+          },
+          {
+            "name": "数学類",
+            "courseFilter": "^FB[0-9A-Z]+$"
+          },
+          {
+            "name": "物理学類",
+            "courseFilter": "^FC[0-9A-Z]+$"
+          },
+          {
+            "name": "化学類",
+            "courseFilter": "^FE[0-9A-Z]+$"
+          },
+          {
+            "name": "応用理工学類",
+            "courseFilter": "^FF[0-9A-Z]+$"
+          },
+          {
+            "name": "工学システム学類",
+            "courseFilter": "^FG[0-9A-Z]+$"
+          },
+          {
+            "name": "社会工学類",
+            "courseFilter": "^FH[0-9A-Z]+$"
+          }
+        ]
+      },
+      {
+        "name": "情報学群",
+        "children": [
+          {
+            "name": "学群",
+            "courseFilter": "^GA[0-9A-Z]+$"
+          },
+          {
+            "name": "情報科学類",
+            "courseFilter": "^GB[0-9A-Z]+$"
+          },
+          {
+            "name": "情報メディア創成学類",
+            "courseFilter": "^GC[0-9A-Z]+$"
+          },
+          {
+            "name": "知識情報・図書館学類",
+            "courseFilter": "^GE[0-9A-Z]+$"
+          }
+        ]
+      },
+      {
+        "name": "医学群",
+        "children": [
+          {
+            "name": "学群",
+            "courseFilter": "^HA[0-9A-Z]+$"
+          },
+          {
+            "name": "医学類",
+            "courseFilter": "^HB[0-9A-Z]+$"
+          },
+          {
+            "name": "看護学類",
+            "courseFilter": "^HC[0-9A-Z]+$"
+          },
+          {
+            "name": "医療化学類",
+            "courseFilter": "^HE[0-9A-Z]+$"
+          }
+        ]
+      }
+    ]
+  }
+]
