@@ -27,7 +27,7 @@ export function Summary({ courses }: SummaryProps) {
 
   return (
     <div className='fixed bottom-0 left-0 w-full px-8'>
-      <div className='flex justify-between pt-2 mt-8 px-2 mx-auto max-w-6xl backdrop-blur bg-white/75'>
+      <div className='flex justify-between pt-2 pb-4 mt-8 px-2 mx-auto max-w-6xl backdrop-blur bg-white/75'>
         <div className='flex gap-x-4'>
           {summary.map(item => <SummaryItem key={item.name} {...item} />)}
         </div>
