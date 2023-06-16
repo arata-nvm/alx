@@ -55,7 +55,7 @@ interface RequirementClassProps {
 }
 
 function RequirementClass({ name, courseNames, depth }: RequirementClassProps) {
-  const indents = ['', 'ml-4', 'ml-8', 'ml-12', 'ml-16'];
+  const indents = ['', 'ml-4', 'ml-8', 'ml-12', 'ml-16', 'ml-20'];
   return (
     <div className={indents[depth]}>
       <p className='font-semibold'>{name}</p>
