@@ -13,12 +13,12 @@ export function Summary({ courses }: SummaryProps) {
 
   // FIXME
   const summary = [
-    { name: '専門科目-必修科目', credit: status.children[0].children[0].credit, creditRange: status.children[0].children[0].creditRange },
-    { name: '専門科目-選択科目', credit: status.children[0].children[1].credit, creditRange: status.children[0].children[1].creditRange },
-    { name: '専門基礎科目-必修科目', credit: status.children[1].children[0].credit, creditRange: status.children[1].children[0].creditRange },
-    { name: '専門基礎科目-選択科目', credit: status.children[1].children[1].credit, creditRange: status.children[1].children[1].creditRange },
-    { name: '基礎科目-共通科目', credit: status.children[2].children[0].credit, creditRange: status.children[2].children[0].creditRange },
-    { name: '基礎科目-関連科目', credit: status.children[2].children[1].credit, creditRange: status.children[2].children[1].creditRange },
+    { name: '専門-必修', credit: status.children[0].children[0].credit, creditRange: status.children[0].children[0].creditRange },
+    { name: '専門-選択', credit: status.children[0].children[1].credit, creditRange: status.children[0].children[1].creditRange },
+    { name: '専門基礎-必修', credit: status.children[1].children[0].credit, creditRange: status.children[1].children[0].creditRange },
+    { name: '専門基礎-選択', credit: status.children[1].children[1].credit, creditRange: status.children[1].children[1].creditRange },
+    { name: '基礎-共通', credit: status.children[2].children[0].credit, creditRange: status.children[2].children[0].creditRange },
+    { name: '基礎-関連', credit: status.children[2].children[1].credit, creditRange: status.children[2].children[1].creditRange },
   ];
 
   const totalItem =
