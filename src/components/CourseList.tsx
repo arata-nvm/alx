@@ -31,9 +31,13 @@ function CourseListItem(props: CourseListItemProps) {
         </div>
         <div className='flex items-center gap-x-4'>
           <CourseStatusBadge status={props.course.status} />
-          <div>
+          <div className='w-12 text-right'>
             <span className='text-md'>{props.course.credit}</span>
             <span className='text-xs'>単位</span>
+          </div>
+          <div className='w-16 text-right'>
+            <span className='text-md'>{props.course.standardYear}</span>
+            <span className='text-xs'>年次</span>
           </div>
         </div>
       </div>

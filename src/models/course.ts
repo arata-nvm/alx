@@ -3,12 +3,14 @@ import kdb from '../resources/kdb.json';
 export type CourseCode = string;
 export type CourseName = string;
 export type CourseCredit = number;
+export type CourseStandardYear = string;
 export type CourseStatus = 'default' | 'take' | 'invalid';
 
 export interface Course {
   code: CourseCode,
   name: CourseName,
   credit: CourseCredit,
+  standardYear: string,
 
   status: CourseStatus,
 }
@@ -18,6 +20,7 @@ export function loadCourses(): Array<Course> {
     code: course[0],
     name: course[1],
     credit: Number(course[3]),
+    standardYear: course[4],
     status: 'default',
   }));
 }
