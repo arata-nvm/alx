@@ -64,7 +64,7 @@ function genInnerCourseView(item: CourseViewItem, courses: Array<Course>, onCour
   const content = (
     <TabsContent key={item.name} value={item.name}>
       <Tabs defaultValue={defaultValue}>
-        <TabsList>{tabs}</TabsList>
+        <TabsList className='justify-start overflow-x-scroll w-full'>{tabs}</TabsList>
         {contents}
       </Tabs>
     </TabsContent >
