@@ -45,7 +45,7 @@ interface SummaryItemProps {
 
 function SummaryItem(props: SummaryItemProps) {
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col items-start'>
       <span className='text-xs'>{props.name}</span>
       <div className='flex gap-0 items-baseline'>
         <span className='text-2xl'>{props.credit}</span>
