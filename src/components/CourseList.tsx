@@ -24,7 +24,8 @@ function CourseListItem(props: CourseListItemProps) {
   const { itemStyle } = statusToColor(props.course.status);
   return (
     <div className={`flex items-center px-1 border-l-4 ${itemStyle}`}>
-      <div className='flex justify-between pr-4 w-full cursor-pointer' onClick={() => props.onClick(props.course.code)}>
+      <a href={`https://kdb.tsukuba.ac.jp/syllabi/2023/${props.course.code}/jpn`} target='_blank'><ExternalLink /></a>
+      <div className='flex justify-between pl-2 w-full cursor-pointer' onClick={() => props.onClick(props.course.code)}>
         <div className='flex flex-col items-start'>
           <span className='text-xs'>{props.course.code}</span>
           <b className='text-md text-left max-w-3xl'>{props.course.name}</b>
@@ -41,7 +42,6 @@ function CourseListItem(props: CourseListItemProps) {
           </div>
         </div>
       </div>
-      <a href={`https://kdb.tsukuba.ac.jp/syllabi/2023/${props.course.code}/jpn`} target='_blank'><ExternalLink /></a>
     </div>
   );
 }
