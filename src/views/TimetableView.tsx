@@ -51,7 +51,7 @@ const Timetable: FC<{
                   ['月', '火', '水', '木', '金'].map(dayOfWeek => (
                     <TableCell key={dayOfWeek}>{
                       courses.filter(course => course.module.includes(semester) && course.module.includes(module) && course.period.includes(dayOfWeek) && course.period.includes(period) && course.status === 'take')
-                        .map(course => <div>{course.name}</div>)
+                        .map(course => <div>{course.name}({course.standardYear})</div>)
                     }</TableCell>
                   ))
                 }
