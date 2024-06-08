@@ -40,13 +40,15 @@ export function inquiryRequirementStatus(item: RequirementViewItem, courses: Arr
     consumedCourses.add(course.code);
   }
 
+  let totalClampedCredit = totalCredit;
   courses = courses.filter(course1 => collectedCourses.findIndex(course2 => course2.code === course1.code) == -1);
 
   const children = [];
   if (item.children) {
     for (const child of item.children) {
       const status = inquiryRequirementStatus(child, courses, consumedCourses)
-      totalCredit += status.clampedCredit;
+      totalCredit += status.credit;
+      totalClampedCredit += status.clampedCredit;
       children.push(status);
     }
   }
@@ -55,7 +57,7 @@ export function inquiryRequirementStatus(item: RequirementViewItem, courses: Arr
     name: item.name,
     courseNames,
     credit: totalCredit,
-    clampedCredit: clampCourseCredit(totalCredit, item.creditRange),
+    clampedCredit: clampCourseCredit(totalClampedCredit, item.creditRange),
     creditRange: item.creditRange,
     children,
   };
