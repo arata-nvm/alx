@@ -19,8 +19,8 @@ export function Summary({ courses }: SummaryProps) {
     '基礎-共通',
     '基礎-関連',
   ];
+
   const summary = [];
-  console.log(rootStatus);
   for (let i = 0; i < names.length; i++) {
     const status = rootStatus.children[Math.floor(i / 2)].children[i % 2];
     summary.push({
