@@ -1,29 +1,71 @@
-import courseViewItems from '../resources/coins23_view.json';
-import { Course, CourseCode, CourseName } from './course';
+import courseViewFilters from '../resources/coins23_view.json';
+import {Course, CourseCode, CourseName} from './course';
 
-export type CourseViewItem = {
+type CourseViewFilter = {
   name: CourseName,
   isDisabled?: boolean,
   courseList?: Array<CourseCode>,
   courseFilter?: string,
-  children?: Array<CourseViewItem>,
+  children?: Array<CourseViewFilter>,
 };
 
-export function loadCourseViewItems(): Array<CourseViewItem> {
-  return courseViewItems
+function loadCourseViewFilters(): Array<CourseViewFilter> {
+  return courseViewFilters
 }
 
-export function collectCoursesFromCourseView(courses: Array<Course>, item: CourseViewItem): Array<Course> {
-  const collected = [];
+export type CourseViewItem = {
+  name: CourseName,
+  isDisabled: boolean,
+  courseList: Array<Course>,
+  children: Array<CourseViewItem>,
+}
 
-  if (item.courseList !== undefined) {
-    collected.push(...courses.filter(course => item.courseList?.indexOf(course.code) != -1));
+export function getCourseViewItems(courses: Array<Course>): Array<CourseViewItem> {
+  const filters = loadCourseViewFilters();
+  const collectedCourses: CourseCode[] = [];
+
+  const items = [];
+  for (const filter of filters) {
+    items.push(doGetCourseViewItems(courses, filter, collectedCourses))
   }
 
-  if (item.courseFilter !== undefined) {
-    const regex = new RegExp(item.courseFilter);
-    collected.push(...courses.filter(course => regex.test(course.code)));
+  const otherCourses = courses.filter(course => !collectedCourses.includes(course.code));
+  items.push({
+    name: "その他",
+    isDisabled: false,
+    courseList: otherCourses,
+    children: [],
+  });
+
+  return items;
+}
+
+function doGetCourseViewItems(courses: Array<Course>, filter: CourseViewFilter, collectedCourses: CourseCode[]): CourseViewItem {
+  const courseList: Course[] = [];
+  if (filter.courseList !== undefined) {
+    for (const course of courses) {
+      if (filter.courseList.includes(course.code) && !collectedCourses.includes(course.code)) {
+        courseList.push(course);
+        collectedCourses.push(course.code);
+      }
+    }
+  }
+  if (filter.courseFilter !== undefined) {
+    const regex = new RegExp(filter.courseFilter);
+    for (const course of courses) {
+      if (regex.test(course.code) && !collectedCourses.includes(course.code)) {
+        courseList.push(course);
+        collectedCourses.push(course.code);
+      }
+    }
   }
 
-  return collected;
+  const children = filter.children?.map(child => doGetCourseViewItems(courses, child, collectedCourses));
+
+  return {
+    name: filter.name,
+    isDisabled: filter.isDisabled ?? false,
+    courseList,
+    children: children ?? [],
+  };
 }

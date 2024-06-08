@@ -1,50 +1,47 @@
 import { Course, CourseCode, takeCourse } from "../models/course";
-import { CourseViewItem, collectCoursesFromCourseView, loadCourseViewItems } from "../models/courseView";
+import {CourseViewItem, getCourseViewItems} from "../models/courseView";
 import { CourseList } from "../components/CourseList";
 import { Tabs, TabsList, TabsTrigger } from "../components/ui/tabs";
 import { TabsContent } from "@radix-ui/react-tabs";
 import { Summary } from "../components/Summary";
+import {FC} from "react";
 
-export interface CourseViewProps {
+export const CourseView: FC<{
   courses: Array<Course>,
   setCourses: (courses: Array<Course>) => void,
-}
-
-export function CourseView({ courses, setCourses }: CourseViewProps) {
+}> = ({ courses, setCourses }) => {
   const onCourseClick = (code: CourseCode) => {
     setCourses(takeCourse(courses, code));
   };
 
   const tabs = [];
-  const contents = []
-  for (const item of loadCourseViewItems()) {
-    const [tab, content] = genInnerCourseView(item, courses, onCourseClick);
+  const contents = [];
+  for (const item of getCourseViewItems(courses)) {
+    const [tab, content] = genInnerCourseView(item, onCourseClick);
     tabs.push(tab);
     contents.push(content);
   }
 
-  const defaultValue = tabs[0].props.value;
-
+  const defaultTab = tabs.find(tab => !tab.props.disabled)?.props.value;
   return (
     <div>
-      <Tabs defaultValue={defaultValue} className='text-start mb-16'>
+      <Tabs defaultValue={defaultTab} className='text-start mb-16'>
         <TabsList>{tabs}</TabsList>
         {contents}
       </Tabs>
       <Summary courses={courses} />
     </div>
   );
-}
+};
 
-function genInnerCourseView(item: CourseViewItem, courses: Array<Course>, onCourseClick: (code: CourseCode) => void) {
+function genInnerCourseView(item: CourseViewItem, onCourseClick: (code: CourseCode) => void) {
   const tab = <TabsTrigger key={item.name} value={item.name} disabled={item.isDisabled}>{item.name}</TabsTrigger>;
 
-  if (!item.children) {
-    const itemCourses = collectCoursesFromCourseView(courses, item);
+  if (item.children.length === 0) {
     const content = (
       <TabsContent key={item.name} value={item.name}>
         <div className='mt-4'>
-          <CourseList courses={itemCourses} onCourseClick={onCourseClick} />
+          <CourseList courses={item.courseList} onCourseClick={onCourseClick} />
         </div>
       </TabsContent>
     );
@@ -52,18 +49,17 @@ function genInnerCourseView(item: CourseViewItem, courses: Array<Course>, onCour
   }
 
   const tabs = [];
-  const contents = []
+  const contents = [];
   for (const childItem of item.children) {
-    const [tab, content] = genInnerCourseView(childItem, courses, onCourseClick);
+    const [tab, content] = genInnerCourseView(childItem, onCourseClick);
     tabs.push(tab);
     contents.push(content);
   }
 
-  const defaultValue = tabs[0].props.value;
-
+  const defaultTab = tabs.find(tab => !tab.props.disabled)?.props.value;
   const content = (
     <TabsContent key={item.name} value={item.name}>
-      <Tabs defaultValue={defaultValue}>
+      <Tabs defaultValue={defaultTab}>
         <TabsList className='justify-start overflow-x-scroll w-full'>{tabs}</TabsList>
         {contents}
       </Tabs>
