@@ -59,8 +59,8 @@ function SummaryItem(props: SummaryItemProps) {
     <div className='flex flex-col items-start'>
       <span className='text-xs'>{props.name}</span>
       <div className='flex gap-0 items-baseline'>
-        <span className='text-2xl'>{props.credit}</span>
-        <span className='text-md'>({props.clampedCredit})</span>
+        <span className='text-2xl'>{props.clampedCredit}</span>
+        <span className='text-md'>({props.credit})</span>
         <span className='text-md'>/</span>
         <span className='text-md'><FormatCourseCreditRange range={props.creditRange}/></span>
       </div>
