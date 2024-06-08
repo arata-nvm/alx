@@ -11,6 +11,8 @@ export type Course = {
   name: CourseName,
   credit: CourseCredit,
   standardYear: string,
+  module: string,
+  period: string,
 
   status: CourseStatus,
 };
@@ -21,6 +23,8 @@ export function loadCourses(): Array<Course> {
     name: course[1],
     credit: Number(course[3]),
     standardYear: course[4],
+    module: course[5],
+    period: course[6],
     status: 'default',
   }));
 }
