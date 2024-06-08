@@ -17,7 +17,7 @@ export function RequirementView({ courses }: RequirementViewProps) {
         <TableRow>
           <TableHead>区分</TableHead>
           <TableHead>要件単位数</TableHead>
-          <TableHead>認定単位数</TableHead>
+          <TableHead>認定単位数(単位数)</TableHead>
           <TableHead>判定</TableHead>
         </TableRow>
       </TableHeader>
@@ -39,8 +39,8 @@ function genInnerRequirementView(status: RequirementStatus, depth: number) {
       <TableRow key={status.name}>
         <TableCell><RequirementClass name={status.name} courseNames={status.courseNames} depth={depth} /></TableCell>
         <TableCell><FormatCourseCreditRange range={status.creditRange} /></TableCell>
-        <TableCell>{status.credit}</TableCell>
-        <TableCell><FormatJudgement credit={status.credit} range={status.creditRange} /></TableCell>
+        <TableCell>{`${status.clampedCredit}(${status.credit})`}</TableCell>
+        <TableCell><FormatJudgement credit={status.clampedCredit} range={status.creditRange} /></TableCell>
       </TableRow>
       {children}
     </>

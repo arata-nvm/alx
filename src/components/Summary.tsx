@@ -9,20 +9,30 @@ export interface SummaryProps {
 
 export function Summary({ courses }: SummaryProps) {
   const item = loadRequirementViewItem();
-  const status = inquiryRequirementStatus(item, [...courses]);
+  const rootStatus = inquiryRequirementStatus(item, [...courses]);
 
-  // FIXME
-  const summary = [
-    { name: '専門-必修', credit: status.children[0].children[0].credit, creditRange: status.children[0].children[0].creditRange },
-    { name: '専門-選択', credit: status.children[0].children[1].credit, creditRange: status.children[0].children[1].creditRange },
-    { name: '専門基礎-必修', credit: status.children[1].children[0].credit, creditRange: status.children[1].children[0].creditRange },
-    { name: '専門基礎-選択', credit: status.children[1].children[1].credit, creditRange: status.children[1].children[1].creditRange },
-    { name: '基礎-共通', credit: status.children[2].children[0].credit, creditRange: status.children[2].children[0].creditRange },
-    { name: '基礎-関連', credit: status.children[2].children[1].credit, creditRange: status.children[2].children[1].creditRange },
+  const names = [
+    '専門-必修',
+    '専門-選択',
+    '専門基礎-必修',
+    '専門基礎-選択',
+    '基礎-共通',
+    '基礎-関連',
   ];
+  const summary = [];
+  console.log(rootStatus);
+  for (let i = 0; i < names.length; i++) {
+    const status = rootStatus.children[Math.floor(i / 2)].children[i % 2];
+    summary.push({
+      name: names[i],
+      credit: status.credit,
+      clampedCredit: status.clampedCredit,
+      creditRange: status.creditRange,
+    });
+  }
 
   const totalItem =
-    { name: '合計', credit: status.credit, creditRange: status.creditRange };
+    { name: '合計', credit: rootStatus.credit, clampedCredit: rootStatus.clampedCredit, creditRange: rootStatus.creditRange };
 
 
   return (
@@ -40,6 +50,7 @@ export function Summary({ courses }: SummaryProps) {
 interface SummaryItemProps {
   name: string,
   credit: CourseCredit,
+  clampedCredit: CourseCredit,
   creditRange: CourseCreditRange,
 }
 
@@ -49,8 +60,9 @@ function SummaryItem(props: SummaryItemProps) {
       <span className='text-xs'>{props.name}</span>
       <div className='flex gap-0 items-baseline'>
         <span className='text-2xl'>{props.credit}</span>
+        <span className='text-md'>({props.clampedCredit})</span>
         <span className='text-md'>/</span>
-        <span className='text-md'><FormatCourseCreditRange range={props.creditRange} /></span>
+        <span className='text-md'><FormatCourseCreditRange range={props.creditRange}/></span>
       </div>
     </div>
   );

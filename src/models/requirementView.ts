@@ -17,6 +17,7 @@ export type CourseCreditRange = {
 export type RequirementStatus = {
   name: string,
   credit: CourseCredit,
+  clampedCredit: CourseCredit,
   creditRange: CourseCreditRange,
   courseNames: Array<string>,
   children: Array<RequirementStatus>,
@@ -45,7 +46,7 @@ export function inquiryRequirementStatus(item: RequirementViewItem, courses: Arr
   if (item.children) {
     for (const child of item.children) {
       const status = inquiryRequirementStatus(child, courses, consumedCourses)
-      totalCredit += status.credit;
+      totalCredit += status.clampedCredit;
       children.push(status);
     }
   }
@@ -53,7 +54,8 @@ export function inquiryRequirementStatus(item: RequirementViewItem, courses: Arr
   return {
     name: item.name,
     courseNames,
-    credit: clampCourseCredit(totalCredit, item.creditRange),
+    credit: totalCredit,
+    clampedCredit: clampCourseCredit(totalCredit, item.creditRange),
     creditRange: item.creditRange,
     children,
   };
