@@ -1,26 +1,26 @@
 import requirement from '../resources/coins23_requirement.json';
 import { Course, CourseCode, CourseCredit } from './course';
 
-export interface RequirementViewItem {
+export type RequirementViewItem = {
   name: string,
   creditRange: CourseCreditRange,
   courseList?: Array<CourseCode>,
   courseFilter?: string,
   children?: Array<RequirementViewItem>,
-}
+};
 
-export interface CourseCreditRange {
+export type CourseCreditRange = {
   min: CourseCredit,
   max?: CourseCredit,
-}
+};
 
-export interface RequirementStatus {
+export type RequirementStatus = {
   name: string,
   credit: CourseCredit,
   creditRange: CourseCreditRange,
   courseNames: Array<string>,
   children: Array<RequirementStatus>,
-}
+};
 
 export function loadRequirementViewItem(): RequirementViewItem {
   return requirement;

@@ -6,14 +6,14 @@ export type CourseCredit = number;
 export type CourseStandardYear = string;
 export type CourseStatus = 'default' | 'take' | 'invalid';
 
-export interface Course {
+export type Course = {
   code: CourseCode,
   name: CourseName,
   credit: CourseCredit,
   standardYear: string,
 
   status: CourseStatus,
-}
+};
 
 export function loadCourses(): Array<Course> {
   return (kdb as { subject: Array<Array<string>> }).subject.map(course => ({

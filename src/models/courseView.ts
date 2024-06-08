@@ -1,13 +1,13 @@
 import courseViewItems from '../resources/coins23_view.json';
 import { Course, CourseCode, CourseName } from './course';
 
-export interface CourseViewItem {
+export type CourseViewItem = {
   name: CourseName,
   isDisabled?: boolean,
   courseList?: Array<CourseCode>,
   courseFilter?: string,
   children?: Array<CourseViewItem>,
-}
+};
 
 export function loadCourseViewItems(): Array<CourseViewItem> {
   return courseViewItems
