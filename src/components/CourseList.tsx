@@ -31,9 +31,16 @@ function CourseListItem(props: CourseListItemProps) {
           <b className='text-md text-left max-w-3xl'>{props.course.name}</b>
         </div>
         <div className='flex items-center gap-x-4'>
-          <CourseStatusBadge status={props.course.status} />
+          <CourseStatusBadge status={props.course.status}/>
+          <div className='text-right'>
+            <span className='text-md'>{props.course.module}</span>
+          </div>
+          <div className='w-16 text-right'>
+            <span className='text-md'>{props.course.period}</span>
+            <span className='text-xs'>時限</span>
+          </div>
           <div className='w-12 text-right'>
-            <span className='text-md'>{props.course.credit}</span>
+          <span className='text-md'>{props.course.credit}</span>
             <span className='text-xs'>単位</span>
           </div>
           <div className='w-16 text-right'>
