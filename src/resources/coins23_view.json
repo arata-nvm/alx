@@ -190,10 +190,7 @@
       },
       {
         "name": "国語",
-        "courseList": [
-          "5108071",
-          "5208021"
-        ]
+        "courseList": ["5108071", "5208021"]
       },
       {
         "name": "芸術",
@@ -284,19 +281,19 @@
         "children": [
           {
             "name": "学群",
-            "courseFilter": "^EZ[0-9A-Z]+$"
+            "courseFilter": "^E(Z[0-9A-Z]+|G0[0-9A-Z]+)$"
           },
           {
             "name": "生命学類",
-            "courseFilter": "^EB[0-9A-Z]+$"
+            "courseFilter": "^E(B[0-9A-Z]+|G[123][0-9A-Z]+)$"
           },
           {
             "name": "生命環境学類",
-            "courseFilter": "^EC[0-9A-Z]+$"
+            "courseFilter": "^E(C[0-9A-Z]+|G[456][0-9A-Z]+)$"
           },
           {
             "name": "地球学類",
-            "courseFilter": "^EE[0-9A-Z]+$"
+            "courseFilter": "^E(E[0-9A-Z]+|G[789][0-9A-Z]+)$"
           }
         ]
       },
