@@ -53,8 +53,8 @@ export function RequiredCourseView({
   };
 
   return (
-    <div className="max-w-md mx-auto">
-      <div className="flex flex-col gap-y-2 mb-4">
+    <div className="mx-auto max-w-md">
+      <div className="mb-4 flex flex-col gap-y-2">
         {requiredCourses.map((required, index) => (
           <RequiredCourseOptionItem
             key={required.name}

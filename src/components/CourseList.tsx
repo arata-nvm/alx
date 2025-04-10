@@ -30,7 +30,7 @@ interface CourseListItemProps {
 function CourseListItem(props: CourseListItemProps) {
   const { itemStyle } = tagToColor(props.item.tag);
   return (
-    <div className={`flex items-center px-1 border-l-4 ${itemStyle}`}>
+    <div className={`flex items-center border-l-4 px-1 ${itemStyle}`}>
       <a
         href={`https://kdb.tsukuba.ac.jp/syllabi/2023/${props.item.code}/jpn`}
         target="_blank"
@@ -38,12 +38,12 @@ function CourseListItem(props: CourseListItemProps) {
         <ExternalLink />
       </a>
       <div
-        className="flex justify-between pl-2 w-full cursor-pointer"
+        className="flex w-full cursor-pointer justify-between pl-2"
         onClick={() => props.onClick(props.item.code, props.item.tag)}
       >
         <div className="flex flex-col items-start">
           <span className="text-xs">{props.item.code}</span>
-          <b className="text-md text-left max-w-3xl">{props.item.name}</b>
+          <b className="text-md max-w-3xl text-left">{props.item.name}</b>
         </div>
         <div className="flex items-center gap-x-4">
           <CourseTagBadge tag={props.item.tag} />

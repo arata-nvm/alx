@@ -33,7 +33,7 @@ export const CourseView: FC<{
     .value;
   return (
     <div>
-      <Tabs defaultValue={defaultTab} className="text-start mb-16">
+      <Tabs defaultValue={defaultTab} className="mb-16 text-start">
         <TabsList>{tabViews}</TabsList>
         {contents}
       </Tabs>
@@ -76,7 +76,7 @@ function genInnerCourseView(
   const content = (
     <TabsContent key={tab.name} value={tab.name}>
       <Tabs defaultValue={defaultTab}>
-        <TabsList className="justify-start overflow-x-scroll w-full">
+        <TabsList className="w-full justify-start overflow-x-scroll">
           {tabViews}
         </TabsList>
         {contents}

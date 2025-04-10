@@ -2,7 +2,7 @@ import { CourseCredit } from "../models/course";
 import { CourseCreditRange } from "../models/requirementView";
 
 export interface FormatCourseCreditRangeProps {
-  range: CourseCreditRange
+  range: CourseCreditRange;
 }
 
 export function FormatCourseCreditRange(props: FormatCourseCreditRangeProps) {
@@ -25,7 +25,7 @@ export function FormatJudgement({ credit, range }: FormatJudgementProps) {
     return `❌ -${range.min - credit}`;
   }
   if (range.max && credit > range.max) {
-    return `✅(+${credit - range.max})`
+    return `✅(+${credit - range.max})`;
   }
   return "✅";
 }

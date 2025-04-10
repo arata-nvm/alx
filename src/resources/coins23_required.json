@@ -26,24 +26,15 @@
     "options": [
       {
         "name": "ソフトウェアサイエンス主専攻",
-        "courseCodes": [
-          "GB26403",
-          "GB26503"
-        ]
+        "courseCodes": ["GB26403", "GB26503"]
       },
       {
         "name": "情報システム主専攻",
-        "courseCodes": [
-          "GB36403",
-          "GB36503"
-        ]
+        "courseCodes": ["GB36403", "GB36503"]
       },
       {
         "name": "知能情報メディア主専攻",
-        "courseCodes": [
-          "GB46403",
-          "GB46503"
-        ]
+        "courseCodes": ["GB46403", "GB46503"]
       }
     ]
   },
@@ -102,23 +93,15 @@
   },
   {
     "name": "情報科目",
-    "courseCodes": [
-      "6124101"
-    ],
+    "courseCodes": ["6124101"],
     "options": [
       {
         "name": "1班",
-        "courseCodes": [
-          "6424102",
-          "6524102"
-        ]
+        "courseCodes": ["6424102", "6524102"]
       },
       {
         "name": "2班",
-        "courseCodes": [
-          "6424202",
-          "6524202"
-        ]
+        "courseCodes": ["6424202", "6524202"]
       }
     ]
   },
@@ -127,57 +110,27 @@
     "options": [
       {
         "name": "6組1班",
-        "courseCodes": [
-          "31HG012",
-          "31KG012",
-          "31JG012",
-          "31LG012"
-        ]
+        "courseCodes": ["31HG012", "31KG012", "31JG012", "31LG012"]
       },
       {
         "name": "6組3班",
-        "courseCodes": [
-          "31HG032",
-          "31KG032",
-          "31JG032",
-          "31LG032"
-        ]
+        "courseCodes": ["31HG032", "31KG032", "31JG032", "31LG032"]
       },
       {
         "name": "6組5班",
-        "courseCodes": [
-          "31HG052",
-          "31KG052",
-          "31JG052",
-          "31LG052"
-        ]
+        "courseCodes": ["31HG052", "31KG052", "31JG052", "31LG052"]
       },
       {
         "name": "6組7班",
-        "courseCodes": [
-          "31HG072",
-          "31KG072",
-          "31JG072",
-          "31LG072"
-        ]
+        "courseCodes": ["31HG072", "31KG072", "31JG072", "31LG072"]
       },
       {
         "name": "6組9班",
-        "courseCodes": [
-          "31HG092",
-          "31KG092",
-          "31JG092",
-          "31LG092"
-        ]
+        "courseCodes": ["31HG092", "31KG092", "31JG092", "31LG092"]
       },
       {
         "name": "6組11班",
-        "courseCodes": [
-          "31HG112",
-          "31KG112",
-          "31JG112",
-          "31LG112"
-        ]
+        "courseCodes": ["31HG112", "31KG112", "31JG112", "31LG112"]
       }
     ]
   }

@@ -25,11 +25,7 @@
                 "min": 3,
                 "max": 3
               },
-              "courseList": [
-                "GB26403",
-                "GB36403",
-                "GB46403"
-              ]
+              "courseList": ["GB26403", "GB36403", "GB46403"]
             },
             {
               "name": "主専攻実験B",
@@ -37,11 +33,7 @@
                 "min": 3,
                 "max": 3
               },
-              "courseList": [
-                "GB26503",
-                "GB36503",
-                "GB46503"
-              ]
+              "courseList": ["GB26503", "GB36503", "GB46503"]
             },
             {
               "name": "卒業研究A",
@@ -49,9 +41,7 @@
                 "min": 3,
                 "max": 3
               },
-              "courseList": [
-                "GB19948"
-              ]
+              "courseList": ["GB19948"]
             },
             {
               "name": "卒業研究B",
@@ -59,9 +49,7 @@
                 "min": 3,
                 "max": 3
               },
-              "courseList": [
-                "GB19958"
-              ]
+              "courseList": ["GB19958"]
             },
             {
               "name": "専門語学A",
@@ -69,9 +57,7 @@
                 "min": 2,
                 "max": 2
               },
-              "courseList": [
-                "GB19091"
-              ]
+              "courseList": ["GB19091"]
             },
             {
               "name": "専門語学B",
@@ -79,9 +65,7 @@
                 "min": 2,
                 "max": 2
               },
-              "courseList": [
-                "GB19101"
-              ]
+              "courseList": ["GB19101"]
             }
           ]
         },
@@ -113,9 +97,7 @@
                     "min": 0,
                     "max": 2
                   },
-                  "courseList": [
-                    "GB13332"
-                  ]
+                  "courseList": ["GB13332"]
                 },
                 {
                   "name": "情報特別演習I",
@@ -123,9 +105,7 @@
                     "min": 0,
                     "max": 2
                   },
-                  "courseList": [
-                    "GB13312"
-                  ]
+                  "courseList": ["GB13312"]
                 },
                 {
                   "name": "情報特別演習II",
@@ -133,9 +113,7 @@
                     "min": 0,
                     "max": 2
                   },
-                  "courseList": [
-                    "GB13322"
-                  ]
+                  "courseList": ["GB13322"]
                 }
               ]
             }
@@ -163,10 +141,7 @@
                 "min": 2,
                 "max": 2
               },
-              "courseList": [
-                "GA15211",
-                "GA15221"
-              ]
+              "courseList": ["GA15211", "GA15221"]
             },
             {
               "name": "線形代数B",
@@ -174,10 +149,7 @@
                 "min": 2,
                 "max": 2
               },
-              "courseList": [
-                "GB10234",
-                "GB10244"
-              ]
+              "courseList": ["GB10234", "GB10244"]
             },
             {
               "name": "微分積分A",
@@ -185,10 +157,7 @@
                 "min": 2,
                 "max": 2
               },
-              "courseList": [
-                "GA15311",
-                "GA15321"
-              ]
+              "courseList": ["GA15311", "GA15321"]
             },
             {
               "name": "微分積分B",
@@ -196,10 +165,7 @@
                 "min": 2,
                 "max": 2
               },
-              "courseList": [
-                "GB10444",
-                "GB10454"
-              ]
+              "courseList": ["GB10444", "GB10454"]
             },
             {
               "name": "情報数学A",
@@ -207,10 +173,7 @@
                 "min": 2,
                 "max": 2
               },
-              "courseList": [
-                "GA15111",
-                "GA15121"
-              ]
+              "courseList": ["GA15111", "GA15121"]
             },
             {
               "name": "専門英語基礎",
@@ -218,9 +181,7 @@
                 "min": 1,
                 "max": 1
               },
-              "courseList": [
-                "GB19061"
-              ]
+              "courseList": ["GB19061"]
             },
             {
               "name": "プログラミング入門A",
@@ -228,9 +189,7 @@
                 "min": 2,
                 "max": 2
               },
-              "courseList": [
-                "GA18212"
-              ]
+              "courseList": ["GA18212"]
             },
             {
               "name": "プログラミング入門B",
@@ -238,9 +197,7 @@
                 "min": 1,
                 "max": 1
               },
-              "courseList": [
-                "GA18312"
-              ]
+              "courseList": ["GA18312"]
             },
             {
               "name": "コンピュータとプログラミング",
@@ -248,9 +205,7 @@
                 "min": 3,
                 "max": 3
               },
-              "courseList": [
-                "GB11964"
-              ]
+              "courseList": ["GB11964"]
             },
             {
               "name": "データ構造とアルゴリズム",
@@ -258,9 +213,7 @@
                 "min": 3,
                 "max": 3
               },
-              "courseList": [
-                "GB11931"
-              ]
+              "courseList": ["GB11931"]
             },
             {
               "name": "データ構造とアルゴリズム実験",
@@ -268,10 +221,7 @@
                 "min": 2,
                 "max": 2
               },
-              "courseList": [
-                "GB11956",
-                "GB11966"
-              ]
+              "courseList": ["GB11956", "GB11966"]
             },
             {
               "name": "論理回路",
@@ -279,9 +229,7 @@
                 "min": 2,
                 "max": 2
               },
-              "courseList": [
-                "GB10804"
-              ]
+              "courseList": ["GB10804"]
             },
             {
               "name": "論理回路実験",
@@ -289,9 +237,7 @@
                 "min": 2,
                 "max": 2
               },
-              "courseList": [
-                "GB12017"
-              ]
+              "courseList": ["GB12017"]
             }
           ]
         },
@@ -321,10 +267,7 @@
               "creditRange": {
                 "min": 2
               },
-              "courseList": [
-                "GB13614",
-                "GB13624"
-              ]
+              "courseList": ["GB13614", "GB13624"]
             },
             {
               "name": "科目番号がGB1で始まる科目（ただし、情報科学特別演習、情報特別演習I、情報特別演習IIは除く）",

@@ -45,7 +45,7 @@ export function Summary({ courses, courseTags }: SummaryProps) {
 
   return (
     <div className="fixed bottom-0 left-0 w-full px-8">
-      <div className="flex justify-between pt-2 pb-4 mt-8 px-2 mx-auto max-w-6xl backdrop-blur bg-white/75">
+      <div className="mx-auto mt-8 flex max-w-6xl justify-between bg-white/75 px-2 pt-2 pb-4 backdrop-blur">
         <div className="flex gap-x-4">
           {summary.map((item) => (
             <SummaryItem key={item.name} {...item} />
@@ -68,7 +68,7 @@ function SummaryItem(props: SummaryItemProps) {
   return (
     <div className="flex flex-col items-start">
       <span className="text-xs">{props.name}</span>
-      <div className="flex gap-0 items-baseline">
+      <div className="flex items-baseline gap-0">
         <span className="text-2xl">{props.clampedCredit}</span>
         <span className="text-md">({props.credit})</span>
         <span className="text-md">/</span>
