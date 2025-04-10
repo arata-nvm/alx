@@ -1,5 +1,5 @@
-import { CourseCredit } from "../models/course";
-import { CourseCreditRange } from "../models/requirementView";
+import { CourseCredit } from "@/models/course";
+import { CourseCreditRange } from "@/models/requirementView";
 
 export interface FormatCourseCreditRangeProps {
   range: CourseCreditRange;

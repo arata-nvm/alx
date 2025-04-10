@@ -1,4 +1,4 @@
-import requiredCourses from "../resources/coins23_required.json";
+import requiredCourses from "@/resources/coins23_required.json";
 import { CourseCode, CourseName } from "./course";
 
 export type RequiredCourse = {

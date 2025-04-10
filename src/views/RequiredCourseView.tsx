@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { CourseCode } from "../models/course";
-import { RequiredCourse, loadRequiredCourses } from "../models/required";
-import { Button } from "../components/ui/button";
+import { CourseCode } from "@/models/course";
+import { RequiredCourse, loadRequiredCourses } from "@/models/required";
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../components/ui/select";
-import { CourseTags, toggleCourseTag } from "../models/courseTag";
+} from "@/components/ui/select";
+import { CourseTags, toggleCourseTag } from "@/models/courseTag";
 import { toast } from "sonner";
 
 export interface RequiredCourseViewProps {

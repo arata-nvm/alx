@@ -1,11 +1,11 @@
 import { FormatCourseCreditRange } from "./Format";
-import { Course, CourseCredit } from "../models/course";
+import { Course, CourseCredit } from "@/models/course";
 import {
   CourseCreditRange,
   inquiryRequirementStatus,
   loadRequirementViewItem,
-} from "../models/requirementView";
-import { CourseTags } from "../models/courseTag";
+} from "@/models/requirementView";
+import { CourseTags } from "@/models/courseTag";
 
 export interface SummaryProps {
   courses: Array<Course>;

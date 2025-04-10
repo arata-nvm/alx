@@ -1,4 +1,4 @@
-import courseViewFilters from "../resources/coins23_view.json";
+import courseViewFilters from "@/resources/coins23_view.json";
 import { Course, CourseCode, CourseName } from "./course";
 import { CourseTag, CourseTags, getCourseTag } from "./courseTag";
 

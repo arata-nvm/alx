@@ -1,15 +1,15 @@
-import { CourseCode, loadCourses } from "../models/course";
+import { CourseCode, loadCourses } from "@/models/course";
 import {
   CourseViewItemTag,
   CourseViewTab,
   getCourseViewTabs,
-} from "../models/courseView";
-import { CourseList } from "../components/CourseList";
-import { Tabs, TabsList, TabsTrigger } from "../components/ui/tabs";
+} from "@/models/courseView";
+import { CourseList } from "@/components/CourseList";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TabsContent } from "@radix-ui/react-tabs";
-import { Summary } from "../components/Summary";
+import { Summary } from "@/components/Summary";
 import { FC, JSX } from "react";
-import { CourseTags, toggleCourseTag } from "../models/courseTag";
+import { CourseTags, toggleCourseTag } from "@/models/courseTag";
 
 export const CourseView: FC<{
   courseTags: CourseTags;

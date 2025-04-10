@@ -1,4 +1,4 @@
-import requirement from "../resources/coins23_requirement.json";
+import requirement from "@/resources/coins23_requirement.json";
 import { Course, CourseCode, CourseCredit } from "./course";
 import { CourseTags, getCourseTag } from "./courseTag";
 

@@ -1,10 +1,10 @@
 import { ReactNode } from "react";
-import { loadCourses } from "../models/course";
+import { loadCourses } from "@/models/course";
 import {
   inquiryRequirementStatus,
   RequirementStatus,
   loadRequirementViewItem,
-} from "../models/requirementView";
+} from "@/models/requirementView";
 import {
   Table,
   TableBody,
@@ -12,9 +12,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "../components/ui/table";
-import { FormatCourseCreditRange, FormatJudgement } from "../components/Format";
-import { CourseTags } from "../models/courseTag";
+} from "@/components/ui/table";
+import { FormatCourseCreditRange, FormatJudgement } from "@/components/Format";
+import { CourseTags } from "@/models/courseTag";
 
 export interface RequirementViewProps {
   courseTags: CourseTags;

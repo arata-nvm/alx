@@ -1,7 +1,7 @@
 import { ExternalLink } from "lucide-react";
-import { CourseCode } from "../models/course";
+import { CourseCode } from "@/models/course";
 import { Badge } from "./ui/badge";
-import { CourseViewItem, CourseViewItemTag } from "../models/courseView";
+import { CourseViewItem, CourseViewItemTag } from "@/models/courseView";
 
 export interface CourseListProps {
   items: Array<CourseViewItem>;

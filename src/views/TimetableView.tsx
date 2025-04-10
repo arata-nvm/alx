@@ -1,4 +1,4 @@
-import { Course, loadCourses } from "../models/course";
+import { Course, loadCourses } from "@/models/course";
 import { FC } from "react";
 import {
   Table,
@@ -7,8 +7,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "../components/ui/table.tsx";
-import { CourseTags, getCourseTag } from "../models/courseTag.ts";
+} from "@/components/ui/table.tsx";
+import { CourseTags, getCourseTag } from "@/models/courseTag.ts";
 
 export const TimetableView: FC<{
   courseTags: CourseTags;
