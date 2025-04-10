@@ -1,23 +1,28 @@
-
 import { FormatCourseCreditRange } from "./Format";
 import { Course, CourseCredit } from "../models/course";
-import { CourseCreditRange, inquiryRequirementStatus, loadRequirementViewItem } from "../models/requirementView";
+import {
+  CourseCreditRange,
+  inquiryRequirementStatus,
+  loadRequirementViewItem,
+} from "../models/requirementView";
+import { CourseTags } from "../models/courseTag";
 
 export interface SummaryProps {
-  courses: Array<Course>,
+  courses: Array<Course>;
+  courseTags: CourseTags;
 }
 
-export function Summary({ courses }: SummaryProps) {
+export function Summary({ courses, courseTags }: SummaryProps) {
   const item = loadRequirementViewItem();
-  const rootStatus = inquiryRequirementStatus(item, [...courses]);
+  const rootStatus = inquiryRequirementStatus(item, courses, courseTags);
 
   const names = [
-    '専門-必修',
-    '専門-選択',
-    '専門基礎-必修',
-    '専門基礎-選択',
-    '基礎-共通',
-    '基礎-関連',
+    "専門-必修",
+    "専門-選択",
+    "専門基礎-必修",
+    "専門基礎-選択",
+    "基礎-共通",
+    "基礎-関連",
   ];
 
   const summary = [];
@@ -31,15 +36,20 @@ export function Summary({ courses }: SummaryProps) {
     });
   }
 
-  const totalItem =
-    { name: '合計', credit: rootStatus.credit, clampedCredit: rootStatus.clampedCredit, creditRange: rootStatus.creditRange };
-
+  const totalItem = {
+    name: "合計",
+    credit: rootStatus.credit,
+    clampedCredit: rootStatus.clampedCredit,
+    creditRange: rootStatus.creditRange,
+  };
 
   return (
-    <div className='fixed bottom-0 left-0 w-full px-8'>
-      <div className='flex justify-between pt-2 pb-4 mt-8 px-2 mx-auto max-w-6xl backdrop-blur bg-white/75'>
-        <div className='flex gap-x-4'>
-          {summary.map(item => <SummaryItem key={item.name} {...item} />)}
+    <div className="fixed bottom-0 left-0 w-full px-8">
+      <div className="flex justify-between pt-2 pb-4 mt-8 px-2 mx-auto max-w-6xl backdrop-blur bg-white/75">
+        <div className="flex gap-x-4">
+          {summary.map((item) => (
+            <SummaryItem key={item.name} {...item} />
+          ))}
         </div>
         <SummaryItem {...totalItem} />
       </div>
@@ -48,21 +58,23 @@ export function Summary({ courses }: SummaryProps) {
 }
 
 interface SummaryItemProps {
-  name: string,
-  credit: CourseCredit,
-  clampedCredit: CourseCredit,
-  creditRange: CourseCreditRange,
+  name: string;
+  credit: CourseCredit;
+  clampedCredit: CourseCredit;
+  creditRange: CourseCreditRange;
 }
 
 function SummaryItem(props: SummaryItemProps) {
   return (
-    <div className='flex flex-col items-start'>
-      <span className='text-xs'>{props.name}</span>
-      <div className='flex gap-0 items-baseline'>
-        <span className='text-2xl'>{props.clampedCredit}</span>
-        <span className='text-md'>({props.credit})</span>
-        <span className='text-md'>/</span>
-        <span className='text-md'><FormatCourseCreditRange range={props.creditRange}/></span>
+    <div className="flex flex-col items-start">
+      <span className="text-xs">{props.name}</span>
+      <div className="flex gap-0 items-baseline">
+        <span className="text-2xl">{props.clampedCredit}</span>
+        <span className="text-md">({props.credit})</span>
+        <span className="text-md">/</span>
+        <span className="text-md">
+          <FormatCourseCreditRange range={props.creditRange} />
+        </span>
       </div>
     </div>
   );

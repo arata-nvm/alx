@@ -1,70 +1,88 @@
-import { Course, CourseCode, takeCourse } from "../models/course";
-import {CourseViewItem, getCourseViewItems} from "../models/courseView";
+import { CourseCode, loadCourses } from "../models/course";
+import {
+  CourseViewItemTag,
+  CourseViewTab,
+  getCourseViewTabs,
+} from "../models/courseView";
 import { CourseList } from "../components/CourseList";
 import { Tabs, TabsList, TabsTrigger } from "../components/ui/tabs";
 import { TabsContent } from "@radix-ui/react-tabs";
 import { Summary } from "../components/Summary";
-import {FC} from "react";
+import { FC } from "react";
+import { CourseTags, toggleCourseTag } from "../models/courseTag";
 
 export const CourseView: FC<{
-  courses: Array<Course>,
-  setCourses: (courses: Array<Course>) => void,
-}> = ({ courses, setCourses }) => {
-  const onCourseClick = (code: CourseCode) => {
-    setCourses(takeCourse(courses, code));
+  courseTags: CourseTags;
+  setCourseTags: (courses: CourseTags) => void;
+}> = ({ courseTags, setCourseTags }) => {
+  const courses = loadCourses();
+  const onCourseClick = (code: CourseCode, tag: CourseViewItemTag) => {
+    if (tag === "invalid") return;
+    setCourseTags(toggleCourseTag(courseTags, code));
   };
 
-  const tabs = [];
+  const tabViews = [];
   const contents = [];
-  for (const item of getCourseViewItems(courses)) {
-    const [tab, content] = genInnerCourseView(item, onCourseClick);
-    tabs.push(tab);
+  for (const tab of getCourseViewTabs(courses, courseTags)) {
+    const [tabView, content] = genInnerCourseView(tab, onCourseClick);
+    tabViews.push(tabView);
     contents.push(content);
   }
 
-  const defaultTab = tabs.find(tab => !tab.props.disabled)?.props.value;
+  const defaultTab = tabViews.find((tabView) => !tabView.props.disabled)?.props
+    .value;
   return (
     <div>
-      <Tabs defaultValue={defaultTab} className='text-start mb-16'>
-        <TabsList>{tabs}</TabsList>
+      <Tabs defaultValue={defaultTab} className="text-start mb-16">
+        <TabsList>{tabViews}</TabsList>
         {contents}
       </Tabs>
-      <Summary courses={courses} />
+      <Summary courses={courses} courseTags={courseTags} />
     </div>
   );
 };
 
-function genInnerCourseView(item: CourseViewItem, onCourseClick: (code: CourseCode) => void) {
-  const tab = <TabsTrigger key={item.name} value={item.name} disabled={item.isDisabled}>{item.name}</TabsTrigger>;
+function genInnerCourseView(
+  tab: CourseViewTab,
+  onCourseClick: (code: CourseCode, tag: CourseViewItemTag) => void,
+): [JSX.Element, JSX.Element] {
+  const tabView = (
+    <TabsTrigger key={tab.name} value={tab.name} disabled={tab.isDisabled}>
+      {tab.name}
+    </TabsTrigger>
+  );
 
-  if (item.children.length === 0) {
+  if (tab.children.length === 0) {
     const content = (
-      <TabsContent key={item.name} value={item.name}>
-        <div className='mt-4'>
-          <CourseList courses={item.courseList} onCourseClick={onCourseClick} />
+      <TabsContent key={tab.name} value={tab.name}>
+        <div className="mt-4">
+          <CourseList items={tab.items} onCourseClick={onCourseClick} />
         </div>
       </TabsContent>
     );
-    return [tab, content];
+    return [tabView, content];
   }
 
-  const tabs = [];
+  const tabViews = [];
   const contents = [];
-  for (const childItem of item.children) {
-    const [tab, content] = genInnerCourseView(childItem, onCourseClick);
-    tabs.push(tab);
+  for (const childItem of tab.children) {
+    const [tabView, content] = genInnerCourseView(childItem, onCourseClick);
+    tabViews.push(tabView);
     contents.push(content);
   }
 
-  const defaultTab = tabs.find(tab => !tab.props.disabled)?.props.value;
+  const defaultTab = tabViews.find((tabView) => !tabView.props.disabled)?.props
+    .value;
   const content = (
-    <TabsContent key={item.name} value={item.name}>
+    <TabsContent key={tab.name} value={tab.name}>
       <Tabs defaultValue={defaultTab}>
-        <TabsList className='justify-start overflow-x-scroll w-full'>{tabs}</TabsList>
+        <TabsList className="justify-start overflow-x-scroll w-full">
+          {tabViews}
+        </TabsList>
         {contents}
       </Tabs>
-    </TabsContent >
+    </TabsContent>
   );
 
-  return [tab, content];
+  return [tabView, content];
 }

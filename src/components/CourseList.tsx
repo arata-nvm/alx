@@ -1,51 +1,66 @@
 import { ExternalLink } from "lucide-react";
-import { Course, CourseCode, CourseStatus } from "../models/course";
+import { CourseCode } from "../models/course";
 import { Badge } from "./ui/badge";
+import { CourseViewItem, CourseViewItemTag } from "../models/courseView";
 
 export interface CourseListProps {
-  courses: Array<Course>,
-  onCourseClick: (code: CourseCode) => void,
+  items: Array<CourseViewItem>;
+  onCourseClick: (code: CourseCode, tag: CourseViewItemTag) => void;
 }
 
 export function CourseList(props: CourseListProps) {
   return (
-    <div className='flex flex-col gap-y-1'>
-      {props.courses.map(course => <CourseListItem key={course.code} course={course} onClick={props.onCourseClick} />)}
+    <div className="flex flex-col gap-y-1">
+      {props.items.map((item) => (
+        <CourseListItem
+          key={item.code}
+          item={item}
+          onClick={props.onCourseClick}
+        />
+      ))}
     </div>
   );
 }
 
 interface CourseListItemProps {
-  course: Course,
-  onClick: (code: CourseCode) => void,
+  item: CourseViewItem;
+  onClick: (code: CourseCode, tag: CourseViewItemTag) => void;
 }
 
 function CourseListItem(props: CourseListItemProps) {
-  const { itemStyle } = statusToColor(props.course.status);
+  const { itemStyle } = tagToColor(props.item.tag);
   return (
     <div className={`flex items-center px-1 border-l-4 ${itemStyle}`}>
-      <a href={`https://kdb.tsukuba.ac.jp/syllabi/2023/${props.course.code}/jpn`} target='_blank'><ExternalLink /></a>
-      <div className='flex justify-between pl-2 w-full cursor-pointer' onClick={() => props.onClick(props.course.code)}>
-        <div className='flex flex-col items-start'>
-          <span className='text-xs'>{props.course.code}</span>
-          <b className='text-md text-left max-w-3xl'>{props.course.name}</b>
+      <a
+        href={`https://kdb.tsukuba.ac.jp/syllabi/2023/${props.item.code}/jpn`}
+        target="_blank"
+      >
+        <ExternalLink />
+      </a>
+      <div
+        className="flex justify-between pl-2 w-full cursor-pointer"
+        onClick={() => props.onClick(props.item.code, props.item.tag)}
+      >
+        <div className="flex flex-col items-start">
+          <span className="text-xs">{props.item.code}</span>
+          <b className="text-md text-left max-w-3xl">{props.item.name}</b>
         </div>
-        <div className='flex items-center gap-x-4'>
-          <CourseStatusBadge status={props.course.status}/>
-          <div className='text-right'>
-            <span className='text-md'>{props.course.module}</span>
+        <div className="flex items-center gap-x-4">
+          <CourseTagBadge tag={props.item.tag} />
+          <div className="text-right">
+            <span className="text-md">{props.item.module}</span>
           </div>
-          <div className='w-16 text-right'>
-            <span className='text-md'>{props.course.period}</span>
-            <span className='text-xs'>時限</span>
+          <div className="w-16 text-right">
+            <span className="text-md">{props.item.period}</span>
+            <span className="text-xs">時限</span>
           </div>
-          <div className='w-12 text-right'>
-          <span className='text-md'>{props.course.credit}</span>
-            <span className='text-xs'>単位</span>
+          <div className="w-12 text-right">
+            <span className="text-md">{props.item.credit}</span>
+            <span className="text-xs">単位</span>
           </div>
-          <div className='w-16 text-right'>
-            <span className='text-md'>{props.course.standardYear}</span>
-            <span className='text-xs'>年次</span>
+          <div className="w-16 text-right">
+            <span className="text-md">{props.item.standardYear}</span>
+            <span className="text-xs">年次</span>
           </div>
         </div>
       </div>
@@ -53,39 +68,42 @@ function CourseListItem(props: CourseListItemProps) {
   );
 }
 
-interface CourseStatusBadgeProps {
-  status: CourseStatus,
+interface CourseTagBadgeProps {
+  tag: CourseViewItemTag;
 }
 
-function CourseStatusBadge(props: CourseStatusBadgeProps) {
+function CourseTagBadge(props: CourseTagBadgeProps) {
   // const { badgeStyle } = statusToColor(props.status);
-  const text = statusToText(props.status);
-  return (<Badge variant='outline'>{text}</Badge>);
+  const text = tagToText(props.tag);
+  return <Badge variant="outline">{text}</Badge>;
 }
 
-interface CourseStatusColor {
-  itemStyle: string,
-  badgeStyle: string,
+interface CourseTagColor {
+  itemStyle: string;
+  badgeStyle: string;
 }
 
-function statusToColor(status: CourseStatus): CourseStatusColor {
+function tagToColor(status: CourseViewItemTag): CourseTagColor {
   switch (status) {
-    case 'default':
-      return { itemStyle: 'border-white', badgeStyle: 'outline' };
-    case 'take':
-      return { itemStyle: 'border-teal-100 bg-teal-50', badgeStyle: 'outline' };
-    case 'invalid':
-      return { itemStyle: 'border-gray-200 bg-gray-100', badgeStyle: 'outline' };
+    case "default":
+      return { itemStyle: "border-white", badgeStyle: "outline" };
+    case "take":
+      return { itemStyle: "border-teal-100 bg-teal-50", badgeStyle: "outline" };
+    case "invalid":
+      return {
+        itemStyle: "border-gray-200 bg-gray-100",
+        badgeStyle: "outline",
+      };
   }
 }
 
-function statusToText(status: CourseStatus): string {
+function tagToText(status: CourseViewItemTag): string {
   switch (status) {
-    case 'default':
-      return '履修しない';
-    case 'take':
-      return '履修する';
-    case 'invalid':
-      return '履修不可';
+    case "default":
+      return "履修しない";
+    case "take":
+      return "履修する";
+    case "invalid":
+      return "履修不可";
   }
 }
