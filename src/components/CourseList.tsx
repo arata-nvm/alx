@@ -24,7 +24,7 @@ export function CourseList(props: CourseListProps) {
 
 interface CourseListItemProps {
   item: CourseViewItem;
-  onClick: (code: CourseCode, tag: CourseViewItemTag) => void;
+  onClick: (code: CourseCode, newTag: CourseViewItemTag) => void;
 }
 
 function CourseListItem(props: CourseListItemProps) {
@@ -59,7 +59,7 @@ function CourseListItem(props: CourseListItemProps) {
           </div>
           <CourseTagSelector
             tag={props.item.tag}
-            disabled={props.item.tag === "invalid"}
+            disabled={props.item.tag === "ineligible"}
             onClick={(tag) => props.onClick(props.item.code, tag)}
           />
         </div>
@@ -68,12 +68,6 @@ function CourseListItem(props: CourseListItemProps) {
   );
 }
 
-function tagToColor(status: CourseViewItemTag): string {
-  switch (status) {
-    case "default":
-    case "take":
-      return "";
-    case "invalid":
-      return "border-gray-200 bg-gray-100";
-  }
+function tagToColor(tag: CourseViewItemTag): string {
+  return tag === "ineligible" ? "border-gray-200 bg-gray-100" : "";
 }

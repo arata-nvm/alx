@@ -1,6 +1,6 @@
 import requirement from "@/resources/coins23_requirement.json";
 import { Course, CourseCode, CourseCredit } from "./course";
-import { CourseTags, getCourseTag } from "./courseTag";
+import { CourseTags, isTaking } from "./courseTag";
 
 export type RequirementViewItem = {
   name: string;
@@ -95,7 +95,7 @@ export function collectCourses(
     collected.push(
       ...courses.filter(
         (course) =>
-          getCourseTag(courseTags, course.code) == "take" &&
+          isTaking(courseTags, course.code) &&
           item.courseList?.indexOf(course.code) != -1 &&
           !consumedCourses.has(course.code),
       ),
@@ -107,7 +107,7 @@ export function collectCourses(
     collected.push(
       ...courses.filter(
         (course) =>
-          getCourseTag(courseTags, course.code) == "take" &&
+          isTaking(courseTags, course.code) &&
           regex.test(course.code) &&
           !consumedCourses.has(course.code),
       ),

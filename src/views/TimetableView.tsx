@@ -8,7 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table.tsx";
-import { CourseTags, getCourseTag } from "@/models/courseTag.ts";
+import { CourseTags, isTaking } from "@/models/courseTag.ts";
 
 export const TimetableView: FC<{
   courseTags: CourseTags;
@@ -95,7 +95,7 @@ const Timetable: FC<{
                       course.module.includes(module) &&
                       course.period.includes(dayOfWeek) &&
                       course.period.includes(period) &&
-                      getCourseTag(courseTags, course.code) === "take",
+                      isTaking(courseTags, course.code),
                   )
                   .map((course) => (
                     <div>

@@ -9,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { CourseTags, toggleCourseTag } from "@/models/courseTag";
+import { CourseTags, setCourseTag } from "@/models/courseTag";
 import { toast } from "sonner";
 
 export interface RequiredCourseViewProps {
@@ -32,7 +32,7 @@ export function RequiredCourseView({
     let newCourseTags = courseTags;
     selectedCourseCodes.forEach((codes) =>
       codes.forEach((code) => {
-        newCourseTags = toggleCourseTag(newCourseTags, code);
+        newCourseTags = setCourseTag(newCourseTags, code, "planned");
       }),
     );
     setCourseTags(newCourseTags);

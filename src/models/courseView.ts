@@ -1,6 +1,12 @@
 import courseViewFilters from "@/resources/coins23_view.json";
 import { Course, CourseCode, CourseName } from "./course";
-import { CourseTag, CourseTags, getCourseTag } from "./courseTag";
+import {
+  CourseTag,
+  CourseTags,
+  courseTagValues,
+  getCourseTag,
+  isTaking,
+} from "./courseTag";
 
 type CourseViewFilter = {
   name: CourseName;
@@ -21,9 +27,7 @@ export type CourseViewTab = {
   children: Array<CourseViewTab>;
 };
 
-export type CourseViewItemTag = CourseTag | "invalid";
-
-export const courseViewItemTagValues: CourseViewItemTag[] = ["take", "default"];
+export type CourseViewItemTag = CourseTag | "ineligible";
 
 export type CourseViewItem = Course & {
   tag: CourseViewItemTag;
@@ -38,7 +42,7 @@ export function getCourseViewTabs(
 
   const takenCourseNames = new Set(
     courses
-      .filter((course) => getCourseTag(courseTags, course.code) === "take")
+      .filter((course) => isTaking(courseTags, course.code))
       .map((course) => course.name),
   );
 
@@ -83,8 +87,11 @@ function doGetCourseViewTabs(
     if (collectedCourses.includes(course.code)) return;
 
     let tag: CourseViewItemTag = getCourseTag(courseTags, course.code);
-    if (tag === "default" && takenCourseNames.has(course.name)) {
-      tag = "invalid";
+    if (
+      !isTaking(courseTags, course.code) &&
+      takenCourseNames.has(course.name)
+    ) {
+      tag = "ineligible";
     }
     items.push({ ...course, tag: tag });
     collectedCourses.push(course.code);

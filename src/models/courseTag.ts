@@ -1,19 +1,14 @@
 import { CourseCode } from "./course";
 
-export type CourseTag = "default" | "take";
+export type CourseTag = "enrolled" | "planned" | "considering" | "declined";
 export type CourseTags = Map<CourseCode, CourseTag>;
 
-export function toggleCourseTag(
-  courseTags: CourseTags,
-  code: CourseCode,
-): CourseTags {
-  const tag = courseTags.get(code);
-  if (tag) {
-    return deleteCourseTag(courseTags, code);
-  } else {
-    return setCourseTag(courseTags, code, "take");
-  }
-}
+export const courseTagValues: CourseTag[] = [
+  "enrolled",
+  "planned",
+  "considering",
+  "declined",
+];
 
 export function setCourseTag(
   _courseTags: CourseTags,
@@ -38,5 +33,10 @@ export function getCourseTag(
   courseTags: CourseTags,
   code: CourseCode,
 ): CourseTag {
-  return courseTags.get(code) ?? "default";
+  return courseTags.get(code) ?? "declined";
+}
+
+export function isTaking(courseTags: CourseTags, code: CourseCode): boolean {
+  const tag = getCourseTag(courseTags, code);
+  return tag === "enrolled" || tag === "planned";
 }

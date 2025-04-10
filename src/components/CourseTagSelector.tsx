@@ -1,15 +1,13 @@
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
-import {
-  CourseViewItemTag,
-  courseViewItemTagValues,
-} from "@/models/courseView";
+import { courseTagValues } from "@/models/courseTag";
+import { CourseViewItemTag } from "@/models/courseView";
 
 interface CourseTagSelectorProps {
   tag: CourseViewItemTag;
   disabled: boolean;
-  onClick: (tag: CourseViewItemTag) => void;
+  onClick: (newTag: CourseViewItemTag) => void;
 }
 
 export function CourseTagSelector(props: CourseTagSelectorProps) {
@@ -22,7 +20,7 @@ export function CourseTagSelector(props: CourseTagSelectorProps) {
       className="flex w-fit max-w-md rounded-lg bg-gray-100 p-1"
     >
       <div className="flex w-full gap-1">
-        {courseViewItemTagValues.map((tag) => (
+        {courseTagValues.map((tag) => (
           <div key={tag} className="relative flex-1">
             <Label
               className={cn(
@@ -50,11 +48,15 @@ export function CourseTagSelector(props: CourseTagSelectorProps) {
 
 function tagToText(tag: CourseViewItemTag): string {
   switch (tag) {
-    case "take":
+    case "enrolled":
+      return "履修済み";
+    case "planned":
       return "履修する";
-    case "default":
-      return "履修しない";
-    case "invalid":
+    case "considering":
+      return "興味あり";
+    case "declined":
+      return "x";
+    case "ineligible":
       return "履修不可";
   }
 }

@@ -9,16 +9,16 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TabsContent } from "@radix-ui/react-tabs";
 import { Summary } from "@/components/Summary";
 import { FC, JSX } from "react";
-import { CourseTags, toggleCourseTag } from "@/models/courseTag";
+import { CourseTags, setCourseTag } from "@/models/courseTag";
 
 export const CourseView: FC<{
   courseTags: CourseTags;
   setCourseTags: (courses: CourseTags) => void;
 }> = ({ courseTags, setCourseTags }) => {
   const courses = loadCourses();
-  const onCourseClick = (code: CourseCode, tag: CourseViewItemTag) => {
-    if (tag === "invalid") return;
-    setCourseTags(toggleCourseTag(courseTags, code));
+  const onCourseClick = (code: CourseCode, newTag: CourseViewItemTag) => {
+    if (newTag === "ineligible") return;
+    setCourseTags(setCourseTag(courseTags, code, newTag));
   };
 
   const tabViews = [];
