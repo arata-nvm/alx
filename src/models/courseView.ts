@@ -23,6 +23,8 @@ export type CourseViewTab = {
 
 export type CourseViewItemTag = CourseTag | "invalid";
 
+export const courseViewItemTagValues: CourseViewItemTag[] = ["take", "default"];
+
 export type CourseViewItem = Course & {
   tag: CourseViewItemTag;
 };

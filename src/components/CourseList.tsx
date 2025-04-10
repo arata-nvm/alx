@@ -1,7 +1,7 @@
 import { ExternalLink } from "lucide-react";
 import { CourseCode } from "@/models/course";
-import { Badge } from "./ui/badge";
 import { CourseViewItem, CourseViewItemTag } from "@/models/courseView";
+import { CourseTagSelector } from "./CourseTagSelector";
 
 export interface CourseListProps {
   items: Array<CourseViewItem>;
@@ -28,31 +28,26 @@ interface CourseListItemProps {
 }
 
 function CourseListItem(props: CourseListItemProps) {
-  const { itemStyle } = tagToColor(props.item.tag);
+  const style = tagToColor(props.item.tag);
   return (
-    <div className={`flex items-center border-l-4 px-1 ${itemStyle}`}>
+    <div className={`flex items-center border-l-4 px-1 ${style}`}>
       <a
         href={`https://kdb.tsukuba.ac.jp/syllabi/2023/${props.item.code}/jpn`}
         target="_blank"
       >
         <ExternalLink />
       </a>
-      <div
-        className="flex w-full cursor-pointer justify-between pl-2"
-        onClick={() => props.onClick(props.item.code, props.item.tag)}
-      >
+      <div className="flex w-full cursor-pointer justify-between pl-2">
         <div className="flex flex-col items-start">
           <span className="text-xs">{props.item.code}</span>
           <b className="text-md max-w-3xl text-left">{props.item.name}</b>
         </div>
         <div className="flex items-center gap-x-4">
-          <CourseTagBadge tag={props.item.tag} />
           <div className="text-right">
             <span className="text-md">{props.item.module}</span>
           </div>
-          <div className="w-16 text-right">
+          <div className="w-20 text-right">
             <span className="text-md">{props.item.period}</span>
-            <span className="text-xs">時限</span>
           </div>
           <div className="w-12 text-right">
             <span className="text-md">{props.item.credit}</span>
@@ -62,48 +57,23 @@ function CourseListItem(props: CourseListItemProps) {
             <span className="text-md">{props.item.standardYear}</span>
             <span className="text-xs">年次</span>
           </div>
+          <CourseTagSelector
+            tag={props.item.tag}
+            disabled={props.item.tag === "invalid"}
+            onClick={(tag) => props.onClick(props.item.code, tag)}
+          />
         </div>
       </div>
     </div>
   );
 }
 
-interface CourseTagBadgeProps {
-  tag: CourseViewItemTag;
-}
-
-function CourseTagBadge(props: CourseTagBadgeProps) {
-  // const { badgeStyle } = statusToColor(props.status);
-  const text = tagToText(props.tag);
-  return <Badge variant="outline">{text}</Badge>;
-}
-
-interface CourseTagColor {
-  itemStyle: string;
-  badgeStyle: string;
-}
-
-function tagToColor(status: CourseViewItemTag): CourseTagColor {
+function tagToColor(status: CourseViewItemTag): string {
   switch (status) {
     case "default":
-      return { itemStyle: "border-white", badgeStyle: "outline" };
     case "take":
-      return { itemStyle: "border-teal-100 bg-teal-50", badgeStyle: "outline" };
+      return "";
     case "invalid":
-      return {
-        itemStyle: "border-gray-200 bg-gray-100",
-        badgeStyle: "outline",
-      };
-  }
-}
-
-function tagToText(status: CourseViewItemTag): string {
-  switch (status) {
-    case "default":
-      return "履修しない";
-    case "take":
-      return "履修する";
-    case "invalid":
-      return "履修不可";
+      return "border-gray-200 bg-gray-100";
   }
 }
