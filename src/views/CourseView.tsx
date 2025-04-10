@@ -8,7 +8,7 @@ import { CourseList } from "../components/CourseList";
 import { Tabs, TabsList, TabsTrigger } from "../components/ui/tabs";
 import { TabsContent } from "@radix-ui/react-tabs";
 import { Summary } from "../components/Summary";
-import { FC } from "react";
+import { FC, JSX } from "react";
 import { CourseTags, toggleCourseTag } from "../models/courseTag";
 
 export const CourseView: FC<{

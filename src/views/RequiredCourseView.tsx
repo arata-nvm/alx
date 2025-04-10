@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useToast } from "../components/ui/use-toast";
 import { CourseCode } from "../models/course";
 import { RequiredCourse, loadRequiredCourses } from "../models/required";
 import { Button } from "../components/ui/button";
@@ -10,8 +9,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../components/ui/select";
-import { Toaster } from "../components/ui/toaster";
 import { CourseTags, toggleCourseTag } from "../models/courseTag";
+import { toast } from "sonner";
 
 export interface RequiredCourseViewProps {
   courseTags: CourseTags;
@@ -22,16 +21,13 @@ export function RequiredCourseView({
   courseTags,
   setCourseTags,
 }: RequiredCourseViewProps) {
-  const { toast } = useToast();
   const requiredCourses = loadRequiredCourses();
   const [selectedCourseCodes, setCourseCodes] = useState<
     Array<Array<CourseCode>>
   >(new Array(requiredCourses.length));
 
   const onClick = () => {
-    toast({
-      title: "必修科目を追加しました",
-    });
+    toast("必修科目を追加しました");
 
     let newCourseTags = courseTags;
     selectedCourseCodes.forEach((codes) =>
@@ -68,7 +64,6 @@ export function RequiredCourseView({
         ))}
       </div>
       <Button onClick={onClick}>必修科目を追加する</Button>
-      <Toaster />
     </div>
   );
 }

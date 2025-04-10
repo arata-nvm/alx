@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 
-function replacer(key: string, value: any) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function replacer(_: string, value: any) {
   if (value instanceof Map) {
     return { dataType: "Map", value: Array.from(value.entries()) };
   } else {
@@ -8,7 +9,8 @@ function replacer(key: string, value: any) {
   }
 }
 
-function reviver(key: string, value: any) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function reviver(_: string, value: any) {
   if (typeof value === "object" && value !== null && value.dataType === "Map") {
     return new Map(value.value);
   } else {
