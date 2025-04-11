@@ -2,6 +2,7 @@ import { ExternalLink } from "lucide-react";
 import { Course } from "@/models/course";
 import { CourseViewItem, CourseViewItemTag } from "@/models/courseView";
 import { CourseTagSelector } from "./CourseTagSelector";
+import { SyllabusLink } from "./SyllabusLink";
 
 export interface CourseListProps {
   items: Array<CourseViewItem>;
@@ -31,12 +32,9 @@ function CourseListItem(props: CourseListItemProps) {
   const style = tagToColor(props.item.tag);
   return (
     <div className={`flex items-center border-l-4 px-1 ${style}`}>
-      <a
-        href={`https://kdb.tsukuba.ac.jp/syllabi/2025/${props.item.code}/jpn`}
-        target="_blank"
-      >
+      <SyllabusLink code={props.item.code}>
         <ExternalLink />
-      </a>
+      </SyllabusLink>
       <div className="flex w-full justify-between pl-2">
         <div className="flex flex-col items-start">
           <span className="text-xs">{props.item.code}</span>
