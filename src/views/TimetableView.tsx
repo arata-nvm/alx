@@ -82,7 +82,7 @@ const Timetable: FC<{
                   ?.get(period)
                   ?.map((course) => (
                     <p className={tagColors[course.tag]}>
-                      {course.name}({course.standardYear})
+                      {course.code} {course.name}({course.standardYear})
                     </p>
                   ))}
               </TableCell>
