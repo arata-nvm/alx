@@ -1,23 +1,28 @@
-import { CourseTag, CourseTags, setCourseTag } from "./courseTag";
+import {
+  CourseTag,
+  SelectedCourses,
+  setSelectedCourseRaw,
+} from "./selectedCourse";
 
 export interface ImportResult {
-  courseTags: CourseTags;
+  selectedCourses: SelectedCourses;
   importedCourses: string[];
   failedCourses: string[];
 }
 
 export function importFromTwins(
   text: string,
-  courseTags: CourseTags,
+  selectedCourses: SelectedCourses,
 ): ImportResult {
   const data = csvToArray(text);
 
-  let newCourseTags = courseTags;
+  let newSelectedCourses = selectedCourses;
   const importedCourses: string[] = [];
   data.forEach((row) => {
     if (row.length < 8) return;
     const courseCode = row[2];
     const courseName = row[3];
+    const courseCredit = parseFloat(row[4]);
     const courseGrade = row[7];
 
     if (courseCode.trim() === "") return;
@@ -31,12 +36,17 @@ export function importFromTwins(
       return;
     }
 
-    newCourseTags = setCourseTag(newCourseTags, courseCode, tag);
+    newSelectedCourses = setSelectedCourseRaw(newSelectedCourses, {
+      code: courseCode,
+      name: courseName,
+      credit: courseCredit,
+      tag,
+    });
     importedCourses.push(courseName);
   });
 
   return {
-    courseTags: newCourseTags,
+    selectedCourses: newSelectedCourses,
     importedCourses: importedCourses,
     failedCourses: data
       .map((row) => row[3])

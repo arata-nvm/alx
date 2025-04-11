@@ -1,6 +1,11 @@
 import requirement from "@/resources/coins23_requirement.json";
-import { Course, CourseCode, CourseCredit } from "./course";
-import { CourseTags, isInterested, isTaking } from "./courseTag";
+import { CourseCode, CourseCredit } from "./course";
+import {
+  interestedCourses,
+  isTagTaking,
+  SelectedCourse,
+  SelectedCourses,
+} from "./selectedCourse";
 
 export type RequirementViewItem = {
   name: string;
@@ -20,7 +25,7 @@ export type RequirementStatus = {
   credit: CourseCredit;
   clampedCredit: CourseCredit;
   creditRange: CourseCreditRange;
-  creditedCourses: Array<Course>;
+  creditedCourses: Array<SelectedCourse>;
   children: Array<RequirementStatus>;
 };
 
@@ -30,23 +35,32 @@ export function loadRequirementViewItem(): RequirementViewItem {
 
 export function inquiryRequirementStatus(
   item: RequirementViewItem,
-  courses: Array<Course>,
-  courseTags: CourseTags,
-  consumedCourses?: Set<CourseCode>,
+  selectedCourses: SelectedCourses,
 ): RequirementStatus {
-  if (!consumedCourses) consumedCourses = new Set();
+  return doInquiryRequirementStatus(
+    item,
+    selectedCourses,
+    interestedCourses(selectedCourses),
+    new Set(),
+  );
+}
 
+function doInquiryRequirementStatus(
+  item: RequirementViewItem,
+  selectedCourses: SelectedCourses,
+  interestedCourses: SelectedCourse[],
+  consumedCourses: Set<CourseCode>,
+): RequirementStatus {
   let totalCredit = 0;
   const creditedCourses = [];
 
   const collectedCourses = collectCourses(
     item,
-    courses,
-    courseTags,
+    interestedCourses,
     consumedCourses,
   );
   for (const course of collectedCourses) {
-    if (isTaking(courseTags, course.code)) {
+    if (!consumedCourses.has(course.code) && isTagTaking(course.tag)) {
       totalCredit += course.credit;
     }
     creditedCourses.push(course);
@@ -54,19 +68,14 @@ export function inquiryRequirementStatus(
   }
 
   let totalClampedCredit = totalCredit;
-  courses = courses.filter(
-    (course1) =>
-      collectedCourses.findIndex((course2) => course2.code === course1.code) ==
-      -1,
-  );
 
   const children = [];
   if (item.children) {
     for (const child of item.children) {
-      const status = inquiryRequirementStatus(
+      const status = doInquiryRequirementStatus(
         child,
-        courses,
-        courseTags,
+        selectedCourses,
+        interestedCourses,
         consumedCourses,
       );
       totalCredit += status.credit;
@@ -85,19 +94,17 @@ export function inquiryRequirementStatus(
   };
 }
 
-export function collectCourses(
+function collectCourses(
   item: RequirementViewItem,
-  courses: Array<Course>,
-  courseTags: CourseTags,
+  interestedCourses: SelectedCourse[],
   consumedCourses: Set<CourseCode>,
-): Array<Course> {
+): Array<SelectedCourse> {
   const collected = [];
 
   if (item.courseList) {
     collected.push(
-      ...courses.filter(
+      ...interestedCourses.filter(
         (course) =>
-          isInterested(courseTags, course.code) &&
           item.courseList?.indexOf(course.code) != -1 &&
           !consumedCourses.has(course.code),
       ),
@@ -107,11 +114,9 @@ export function collectCourses(
   if (item.courseFilter) {
     const regex = new RegExp(item.courseFilter);
     collected.push(
-      ...courses.filter(
+      ...interestedCourses.filter(
         (course) =>
-          isInterested(courseTags, course.code) &&
-          regex.test(course.code) &&
-          !consumedCourses.has(course.code),
+          regex.test(course.code) && !consumedCourses.has(course.code),
       ),
     );
   }

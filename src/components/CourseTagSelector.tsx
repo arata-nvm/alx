@@ -1,8 +1,8 @@
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
-import { courseTagValues } from "@/models/courseTag";
 import { CourseViewItemTag } from "@/models/courseView";
+import { courseTagValues } from "@/models/selectedCourse";
 import { cva, VariantProps } from "class-variance-authority";
 
 const selectorVariants = cva(

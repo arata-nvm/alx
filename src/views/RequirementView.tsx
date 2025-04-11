@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import { Course, CourseCode, loadCourses } from "@/models/course";
 import {
   inquiryRequirementStatus,
   RequirementStatus,
@@ -14,25 +13,28 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { FormatCourseCreditRange, FormatJudgement } from "@/components/Format";
-import { CourseTags, getCourseTag, setCourseTag } from "@/models/courseTag";
 import { CourseTagSelector } from "@/components/CourseTagSelector";
 import { CourseViewItemTag } from "@/models/courseView";
+import {
+  SelectedCourse,
+  SelectedCourses,
+  setSelectedCourse,
+} from "@/models/selectedCourse";
 
 export interface RequirementViewProps {
-  courseTags: CourseTags;
-  setCourseTags: (courses: CourseTags) => void;
+  selectedCourses: SelectedCourses;
+  setSelectedCourses: (courses: SelectedCourses) => void;
 }
 
 export function RequirementView({
-  courseTags,
-  setCourseTags,
+  selectedCourses,
+  setSelectedCourses,
 }: RequirementViewProps) {
-  const courses = loadCourses();
   const item = loadRequirementViewItem();
-  const status = inquiryRequirementStatus(item, courses, courseTags);
-  const onTagClick = (code: CourseCode, newTag: CourseViewItemTag) => {
+  const status = inquiryRequirementStatus(item, selectedCourses);
+  const onTagClick = (course: SelectedCourse, newTag: CourseViewItemTag) => {
     if (newTag === "ineligible") return;
-    setCourseTags(setCourseTag(courseTags, code, newTag));
+    setSelectedCourses(setSelectedCourse(selectedCourses, course, newTag));
   };
 
   return (
@@ -45,23 +47,20 @@ export function RequirementView({
           <TableHead>判定</TableHead>
         </TableRow>
       </TableHeader>
-      <TableBody>
-        {genInnerRequirementView(status, courseTags, onTagClick, 0)}
-      </TableBody>
+      <TableBody>{genInnerRequirementView(status, onTagClick, 0)}</TableBody>
     </Table>
   );
 }
 
 function genInnerRequirementView(
   status: RequirementStatus,
-  courseTags: CourseTags,
-  onTagClick: (code: CourseCode, newTag: CourseViewItemTag) => void,
+  onTagClick: (course: SelectedCourse, newTag: CourseViewItemTag) => void,
   depth: number,
 ) {
   let children: Array<ReactNode> = [];
   if (status.children) {
     children = status.children.map((child) =>
-      genInnerRequirementView(child, courseTags, onTagClick, depth + 1),
+      genInnerRequirementView(child, onTagClick, depth + 1),
     );
   }
 
@@ -72,7 +71,6 @@ function genInnerRequirementView(
           <RequirementClass
             name={status.name}
             creditedCourses={status.creditedCourses}
-            courseTags={courseTags}
             onTagClick={onTagClick}
             depth={depth}
           />
@@ -95,16 +93,14 @@ function genInnerRequirementView(
 
 interface RequirementClassProps {
   name: string;
-  creditedCourses: Array<Course>;
-  courseTags: CourseTags;
-  onTagClick: (code: CourseCode, newTag: CourseViewItemTag) => void;
+  creditedCourses: Array<SelectedCourse>;
+  onTagClick: (course: SelectedCourse, newTag: CourseViewItemTag) => void;
   depth: number;
 }
 
 function RequirementClass({
   name,
   creditedCourses,
-  courseTags,
   onTagClick,
   depth,
 }: RequirementClassProps) {
@@ -114,11 +110,7 @@ function RequirementClass({
       <p className="font-semibold">{name}</p>
       <div className="flex flex-col gap-1">
         {creditedCourses.map((course) => (
-          <CreditedCourse
-            course={course}
-            courseTags={courseTags}
-            onTagClick={onTagClick}
-          />
+          <CreditedCourse course={course} onTagClick={onTagClick} />
         ))}
       </div>
     </div>
@@ -126,24 +118,19 @@ function RequirementClass({
 }
 
 interface CreditedCourseProps {
-  course: Course;
-  courseTags: CourseTags;
-  onTagClick: (code: CourseCode, newTag: CourseViewItemTag) => void;
+  course: SelectedCourse;
+  onTagClick: (code: SelectedCourse, newTag: CourseViewItemTag) => void;
 }
 
-function CreditedCourse({
-  course,
-  courseTags,
-  onTagClick,
-}: CreditedCourseProps) {
+function CreditedCourse({ course, onTagClick }: CreditedCourseProps) {
   return (
     <div className="flex items-center justify-start gap-2">
       <p className="text-xs">{`${course.code} ${course.name} (${course.credit}単位)`}</p>
       <CourseTagSelector
         variant="small"
-        tag={getCourseTag(courseTags, course.code)}
+        tag={course.tag}
         disabled={false}
-        onClick={(newTag) => onTagClick(course.code, newTag)}
+        onClick={(newTag) => onTagClick(course, newTag)}
       />
     </div>
   );

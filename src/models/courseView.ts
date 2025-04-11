@@ -1,6 +1,12 @@
 import courseViewFilters from "@/resources/coins23_view.json";
 import { Course, CourseCode, CourseName } from "./course";
-import { CourseTag, CourseTags, getCourseTag, isTaking } from "./courseTag";
+import {
+  CourseTag,
+  getSelectedCourseTag,
+  isTaking,
+  SelectedCourses,
+  takingCourse,
+} from "./selectedCourse";
 
 type CourseViewFilter = {
   name: CourseName;
@@ -29,15 +35,13 @@ export type CourseViewItem = Course & {
 
 export function getCourseViewTabs(
   courses: Array<Course>,
-  courseTags: CourseTags,
+  selectedCourses: SelectedCourses,
 ): Array<CourseViewTab> {
   const filters = loadCourseViewFilters();
   const collectedCourses: CourseCode[] = [];
 
   const takenCourseNames = new Set(
-    courses
-      .filter((course) => isTaking(courseTags, course.code))
-      .map((course) => course.name),
+    takingCourse(selectedCourses).map((course) => course.name),
   );
 
   const items: CourseViewTab[] = [];
@@ -45,7 +49,7 @@ export function getCourseViewTabs(
     items.push(
       doGetCourseViewTabs(
         courses,
-        courseTags,
+        selectedCourses,
         filter,
         collectedCourses,
         takenCourseNames,
@@ -57,7 +61,7 @@ export function getCourseViewTabs(
     .filter((course) => !collectedCourses.includes(course.code))
     .map((course) => ({
       ...course,
-      tag: getCourseTag(courseTags, course.code),
+      tag: getSelectedCourseTag(selectedCourses, course.code),
     }));
 
   items.push({
@@ -72,7 +76,7 @@ export function getCourseViewTabs(
 
 function doGetCourseViewTabs(
   courses: Array<Course>,
-  courseTags: CourseTags,
+  selectedCourses: SelectedCourses,
   filter: CourseViewFilter,
   collectedCourses: CourseCode[],
   takenCourseNames: Set<string>,
@@ -80,9 +84,12 @@ function doGetCourseViewTabs(
   const addCourseViewItem = (course: Course) => {
     if (collectedCourses.includes(course.code)) return;
 
-    let tag: CourseViewItemTag = getCourseTag(courseTags, course.code);
+    let tag: CourseViewItemTag = getSelectedCourseTag(
+      selectedCourses,
+      course.code,
+    );
     if (
-      !isTaking(courseTags, course.code) &&
+      !isTaking(selectedCourses, course.code) &&
       takenCourseNames.has(course.name)
     ) {
       tag = "ineligible";
@@ -110,7 +117,7 @@ function doGetCourseViewTabs(
   const children = filter.children?.map((child) =>
     doGetCourseViewTabs(
       courses,
-      courseTags,
+      selectedCourses,
       child,
       collectedCourses,
       takenCourseNames,

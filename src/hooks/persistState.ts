@@ -1,5 +1,5 @@
 import { V1Course } from "@/models/course";
-import { CourseTags, setCourseTag } from "@/models/courseTag";
+import { setSelectedCourse, SelectedCourses } from "@/models/selectedCourse";
 import { useCallback, useState } from "react";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -22,10 +22,11 @@ function reviver(_: string, value: any) {
 
 const v1PersistKey = "courses";
 export const persistKey = "courses_v2";
+type State = SelectedCourses;
 
 export function usePersistState(
-  initialValue: CourseTags,
-): [CourseTags, (state: CourseTags) => void] {
+  initialValue: State,
+): [State, (state: State) => void] {
   let defaultValue = initialValue;
 
   const v2StorageItem = localStorage.getItem(persistKey);
@@ -38,7 +39,7 @@ export function usePersistState(
       v1Courses
         .filter((course) => course.status === "take")
         .forEach((course) => {
-          defaultValue = setCourseTag(defaultValue, course.code, "planned");
+          defaultValue = setSelectedCourse(defaultValue, course, "planned");
         });
     }
     localStorage.setItem(persistKey, JSON.stringify(defaultValue, replacer));
@@ -46,7 +47,7 @@ export function usePersistState(
 
   const [state, setState] = useState(defaultValue);
 
-  const setPersistState = useCallback((state: CourseTags) => {
+  const setPersistState = useCallback((state: State) => {
     localStorage.setItem(persistKey, JSON.stringify(state, replacer));
     setState(state);
   }, []);

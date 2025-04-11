@@ -8,11 +8,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table.tsx";
-import { CourseTags, isTaking } from "@/models/courseTag.ts";
+import { isTaking, SelectedCourses } from "@/models/selectedCourse";
 
 export const TimetableView: FC<{
-  courseTags: CourseTags;
-}> = ({ courseTags }) => {
+  selectedCourses: SelectedCourses;
+}> = ({ selectedCourses }) => {
   const courses = loadCourses();
   return (
     <div>
@@ -20,21 +20,21 @@ export const TimetableView: FC<{
       <h3>A</h3>
       <Timetable
         courses={courses}
-        courseTags={courseTags}
+        selectedCourses={selectedCourses}
         semester="春"
         module="A"
       />
       <h3>B</h3>
       <Timetable
         courses={courses}
-        courseTags={courseTags}
+        selectedCourses={selectedCourses}
         semester="春"
         module="B"
       />
       <h3>C</h3>
       <Timetable
         courses={courses}
-        courseTags={courseTags}
+        selectedCourses={selectedCourses}
         semester="春"
         module="C"
       />
@@ -42,21 +42,21 @@ export const TimetableView: FC<{
       <h3>A</h3>
       <Timetable
         courses={courses}
-        courseTags={courseTags}
+        selectedCourses={selectedCourses}
         semester="秋"
         module="A"
       />
       <h3>B</h3>
       <Timetable
         courses={courses}
-        courseTags={courseTags}
+        selectedCourses={selectedCourses}
         semester="秋"
         module="B"
       />
       <h3>C</h3>
       <Timetable
         courses={courses}
-        courseTags={courseTags}
+        selectedCourses={selectedCourses}
         semester="秋"
         module="C"
       />
@@ -66,10 +66,10 @@ export const TimetableView: FC<{
 
 const Timetable: FC<{
   courses: Array<Course>;
-  courseTags: CourseTags;
+  selectedCourses: SelectedCourses;
   semester: string;
   module: string;
-}> = ({ courses, courseTags, semester, module }) => {
+}> = ({ courses, selectedCourses, semester, module }) => {
   return (
     <Table>
       <TableHeader>
@@ -95,7 +95,7 @@ const Timetable: FC<{
                       course.module.includes(module) &&
                       course.period.includes(dayOfWeek) &&
                       course.period.includes(period) &&
-                      isTaking(courseTags, course.code),
+                      isTaking(selectedCourses, course.code),
                   )
                   .map((course) => (
                     <div>

@@ -1,11 +1,11 @@
 import { ExternalLink } from "lucide-react";
-import { CourseCode } from "@/models/course";
+import { Course } from "@/models/course";
 import { CourseViewItem, CourseViewItemTag } from "@/models/courseView";
 import { CourseTagSelector } from "./CourseTagSelector";
 
 export interface CourseListProps {
   items: Array<CourseViewItem>;
-  onCourseClick: (code: CourseCode, tag: CourseViewItemTag) => void;
+  onCourseClick: (course: Course, newTag: CourseViewItemTag) => void;
 }
 
 export function CourseList(props: CourseListProps) {
@@ -24,7 +24,7 @@ export function CourseList(props: CourseListProps) {
 
 interface CourseListItemProps {
   item: CourseViewItem;
-  onClick: (code: CourseCode, newTag: CourseViewItemTag) => void;
+  onClick: (course: Course, newTag: CourseViewItemTag) => void;
 }
 
 function CourseListItem(props: CourseListItemProps) {
@@ -60,7 +60,7 @@ function CourseListItem(props: CourseListItemProps) {
           <CourseTagSelector
             tag={props.item.tag}
             disabled={props.item.tag === "ineligible"}
-            onClick={(tag) => props.onClick(props.item.code, tag)}
+            onClick={(tag) => props.onClick(props.item, tag)}
           />
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { CourseCode, loadCourses } from "@/models/course";
+import { Course, loadCourses } from "@/models/course";
 import {
   CourseViewItemTag,
   CourseViewTab,
@@ -9,21 +9,21 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TabsContent } from "@radix-ui/react-tabs";
 import { Summary } from "@/components/Summary";
 import { FC, JSX } from "react";
-import { CourseTags, setCourseTag } from "@/models/courseTag";
+import { SelectedCourses, setSelectedCourse } from "@/models/selectedCourse";
 
 export const CourseView: FC<{
-  courseTags: CourseTags;
-  setCourseTags: (courses: CourseTags) => void;
-}> = ({ courseTags, setCourseTags }) => {
+  selectedCourses: SelectedCourses;
+  setSelectedCourses: (courses: SelectedCourses) => void;
+}> = ({ selectedCourses, setSelectedCourses }) => {
   const courses = loadCourses();
-  const onCourseClick = (code: CourseCode, newTag: CourseViewItemTag) => {
+  const onCourseClick = (course: Course, newTag: CourseViewItemTag) => {
     if (newTag === "ineligible") return;
-    setCourseTags(setCourseTag(courseTags, code, newTag));
+    setSelectedCourses(setSelectedCourse(selectedCourses, course, newTag));
   };
 
   const tabViews = [];
   const contents = [];
-  for (const tab of getCourseViewTabs(courses, courseTags)) {
+  for (const tab of getCourseViewTabs(courses, selectedCourses)) {
     const [tabView, content] = genInnerCourseView(tab, onCourseClick);
     tabViews.push(tabView);
     contents.push(content);
@@ -37,14 +37,14 @@ export const CourseView: FC<{
         <TabsList>{tabViews}</TabsList>
         {contents}
       </Tabs>
-      <Summary courses={courses} courseTags={courseTags} />
+      <Summary selectedCourses={selectedCourses} />
     </div>
   );
 };
 
 function genInnerCourseView(
   tab: CourseViewTab,
-  onCourseClick: (code: CourseCode, tag: CourseViewItemTag) => void,
+  onCourseClick: (course: Course, tag: CourseViewItemTag) => void,
 ): [JSX.Element, JSX.Element] {
   const tabView = (
     <TabsTrigger key={tab.name} value={tab.name} disabled={tab.isDisabled}>

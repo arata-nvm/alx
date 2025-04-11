@@ -1,20 +1,19 @@
 import { FormatCourseCreditRange } from "./Format";
-import { Course, CourseCredit } from "@/models/course";
+import { CourseCredit } from "@/models/course";
 import {
   CourseCreditRange,
   inquiryRequirementStatus,
   loadRequirementViewItem,
 } from "@/models/requirementView";
-import { CourseTags } from "@/models/courseTag";
+import { SelectedCourses } from "@/models/selectedCourse";
 
 export interface SummaryProps {
-  courses: Array<Course>;
-  courseTags: CourseTags;
+  selectedCourses: SelectedCourses;
 }
 
-export function Summary({ courses, courseTags }: SummaryProps) {
+export function Summary({ selectedCourses }: SummaryProps) {
   const item = loadRequirementViewItem();
-  const rootStatus = inquiryRequirementStatus(item, courses, courseTags);
+  const rootStatus = inquiryRequirementStatus(item, selectedCourses);
 
   const names = [
     "専門-必修",

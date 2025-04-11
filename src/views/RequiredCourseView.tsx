@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CourseCode } from "@/models/course";
+import { CourseCode, loadCourses } from "@/models/course";
 import { RequiredCourse, loadRequiredCourses } from "@/models/required";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,18 +9,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { CourseTags, setCourseTag } from "@/models/courseTag";
 import { toast } from "sonner";
+import { SelectedCourses, setSelectedCourse } from "@/models/selectedCourse";
 
 export interface RequiredCourseViewProps {
-  courseTags: CourseTags;
-  setCourseTags: (courses: CourseTags) => void;
+  selectedCourses: SelectedCourses;
+  setSelectedCourses: (courses: SelectedCourses) => void;
 }
 
 export function RequiredCourseView({
-  courseTags,
-  setCourseTags,
+  selectedCourses,
+  setSelectedCourses,
 }: RequiredCourseViewProps) {
+  const courses = loadCourses();
   const requiredCourses = loadRequiredCourses();
   const [selectedCourseCodes, setCourseCodes] = useState<
     Array<Array<CourseCode>>
@@ -29,13 +30,20 @@ export function RequiredCourseView({
   const onClick = () => {
     toast("必修科目を追加しました");
 
-    let newCourseTags = courseTags;
+    let newSelectedCourses = selectedCourses;
     selectedCourseCodes.forEach((codes) =>
       codes.forEach((code) => {
-        newCourseTags = setCourseTag(newCourseTags, code, "planned");
+        const course = courses.find((course) => course.code === code);
+        if (course) {
+          newSelectedCourses = setSelectedCourse(
+            newSelectedCourses,
+            course,
+            "planned",
+          );
+        }
       }),
     );
-    setCourseTags(newCourseTags);
+    setSelectedCourses(newSelectedCourses);
   };
 
   const onChange = (index: number, name: string) => {

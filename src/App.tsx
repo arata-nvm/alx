@@ -9,7 +9,7 @@ import { Toaster } from "./components/ui/sonner.tsx";
 import { SettingsView } from "./views/SettingsView.tsx";
 
 export default function App() {
-  const [courseTags, setCourseTags] = usePersistState(new Map());
+  const [selectedCourses, setSelectedCourses] = usePersistState(new Map());
 
   return (
     <div className="xl:container">
@@ -22,25 +22,31 @@ export default function App() {
           <TabsTrigger value="5">設定</TabsTrigger>
         </TabsList>
         <TabsContent value="1">
-          <CourseView courseTags={courseTags} setCourseTags={setCourseTags} />
+          <CourseView
+            selectedCourses={selectedCourses}
+            setSelectedCourses={setSelectedCourses}
+          />
         </TabsContent>
         <TabsContent value="2">
           <RequirementView
-            courseTags={courseTags}
-            setCourseTags={setCourseTags}
+            selectedCourses={selectedCourses}
+            setSelectedCourses={setSelectedCourses}
           />
         </TabsContent>
         <TabsContent value="3">
           <RequiredCourseView
-            courseTags={courseTags}
-            setCourseTags={setCourseTags}
+            selectedCourses={selectedCourses}
+            setSelectedCourses={setSelectedCourses}
           />
         </TabsContent>
         <TabsContent value="4">
-          <TimetableView courseTags={courseTags} />
+          <TimetableView selectedCourses={selectedCourses} />
         </TabsContent>
         <TabsContent value="5">
-          <SettingsView courseTags={courseTags} setCourseTags={setCourseTags} />
+          <SettingsView
+            selectedCourses={selectedCourses}
+            setSelectedCourses={setSelectedCourses}
+          />
         </TabsContent>
       </Tabs>
       <Toaster />

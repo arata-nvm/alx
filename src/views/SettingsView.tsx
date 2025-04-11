@@ -4,13 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { importFromTwins } from "@/models/importFromTwins";
-import { CourseTags } from "@/models/courseTag";
 import { persistKey } from "@/hooks/persistState";
+import { SelectedCourses } from "@/models/selectedCourse";
 
 export const SettingsView: FC<{
-  courseTags: CourseTags;
-  setCourseTags: (courses: CourseTags) => void;
-}> = ({ courseTags, setCourseTags }) => {
+  selectedCourses: SelectedCourses;
+  setSelectedCourses: (courses: SelectedCourses) => void;
+}> = ({ selectedCourses, setSelectedCourses }) => {
   const [importData, setImportData] = useState<string>("");
   const [file, setFile] = useState<File | undefined>(undefined);
   const [importedCourses, setImportedCourses] = useState<string[]>([]);
@@ -68,8 +68,8 @@ export const SettingsView: FC<{
                 return;
               }
 
-              const result = importFromTwins(text, courseTags);
-              setCourseTags(result.courseTags);
+              const result = importFromTwins(text, selectedCourses);
+              setSelectedCourses(result.selectedCourses);
               setImportedCourses(result.importedCourses);
               setFailedCourses(result.failedCourses);
               toast("インポートが完了しました");
