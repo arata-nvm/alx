@@ -24,6 +24,10 @@
       {
         "name": "GB2,GB3,GB4,GA4で始まる科目",
         "courseFilter": "^G(B2|B3|B4|A4)[0-9A-Z]+$"
+      },
+      {
+        "name": "情報科学特別演習",
+        "courseFilter": "^(GB13332|GB13312|GB13322)$"
       }
     ]
   },
