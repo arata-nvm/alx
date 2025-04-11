@@ -24,7 +24,7 @@ export function CourseTagSelector(props: CourseTagSelectorProps) {
           <div key={tag} className="relative flex-1">
             <Label
               className={cn(
-                "flex items-center justify-center rounded-lg px-2 py-[3px] text-sm font-medium text-nowrap transition-all",
+                "flex cursor-pointer items-center justify-center rounded-lg px-2 py-[3px] text-sm font-medium text-nowrap transition-all",
                 props.tag === tag
                   ? "bg-white text-black shadow-sm"
                   : "text-gray-500 hover:bg-gray-200",
@@ -35,7 +35,7 @@ export function CourseTagSelector(props: CourseTagSelectorProps) {
               <RadioGroupItem
                 value={tag}
                 disabled={props.disabled}
-                className="absolute inset-0 z-10 cursor-pointer opacity-0"
+                className="absolute inset-0 z-10 opacity-0"
               />
               {tagToText(tag)}
             </Label>

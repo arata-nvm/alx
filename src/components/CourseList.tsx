@@ -37,7 +37,7 @@ function CourseListItem(props: CourseListItemProps) {
       >
         <ExternalLink />
       </a>
-      <div className="flex w-full cursor-pointer justify-between pl-2">
+      <div className="flex w-full justify-between pl-2">
         <div className="flex flex-col items-start">
           <span className="text-xs">{props.item.code}</span>
           <b className="text-md max-w-3xl text-left">{props.item.name}</b>
