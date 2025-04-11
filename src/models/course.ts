@@ -4,6 +4,7 @@ export type CourseCode = string;
 export type CourseName = string;
 export type CourseCredit = number;
 export type CourseStandardYear = string;
+export type V1CourseStatus = "default" | "take" | "invalid";
 
 export type Course = {
   code: CourseCode;
@@ -12,6 +13,16 @@ export type Course = {
   standardYear: string;
   module: string;
   period: string;
+};
+
+export type V1Course = {
+  code: CourseCode;
+  name: CourseName;
+  credit: CourseCredit;
+  standardYear: string;
+  module: string;
+  period: string;
+  status: V1CourseStatus;
 };
 
 export function loadCourses(): Array<Course> {

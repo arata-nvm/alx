@@ -1,4 +1,7 @@
+import { V1Course } from "@/models/course";
+import { CourseTags, setCourseTag } from "@/models/courseTag";
 import { useCallback, useState } from "react";
+import { toast } from "sonner";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function replacer(_: string, value: any) {
@@ -18,24 +21,36 @@ function reviver(_: string, value: any) {
   }
 }
 
-export function usePersistState<T>(key: string, initialValue: T) {
+const v1PersistKey = "courses";
+export const persistKey = "courses_v2";
+
+export function usePersistState(
+  initialValue: CourseTags,
+): [CourseTags, (state: CourseTags) => void] {
   let defaultValue = initialValue;
-  const storageItem = localStorage.getItem(key);
-  if (storageItem === null || storageItem.trim() === "") {
-    localStorage.setItem(key, JSON.stringify(initialValue, replacer));
+
+  const v2StorageItem = localStorage.getItem(persistKey);
+  if (v2StorageItem !== null && v2StorageItem.trim() !== "") {
+    defaultValue = JSON.parse(v2StorageItem, reviver);
   } else {
-    defaultValue = JSON.parse(storageItem, reviver);
+    const v1StorageItem = localStorage.getItem(v1PersistKey);
+    if (v1StorageItem !== null && v1StorageItem.trim() !== "") {
+      const v1Courses: V1Course[] = JSON.parse(v1StorageItem) ?? [];
+      v1Courses
+        .filter((course) => course.status === "take")
+        .forEach((course) => {
+          defaultValue = setCourseTag(defaultValue, course.code, "planned");
+        });
+    }
+    localStorage.setItem(persistKey, JSON.stringify(defaultValue, replacer));
   }
 
   const [state, setState] = useState(defaultValue);
 
-  const setPersistState = useCallback(
-    (state: T) => {
-      localStorage.setItem(key, JSON.stringify(state, replacer));
-      setState(state);
-    },
-    [key],
-  );
+  const setPersistState = useCallback((state: CourseTags) => {
+    localStorage.setItem(persistKey, JSON.stringify(state, replacer));
+    setState(state);
+  }, []);
 
   return [state, setPersistState];
 }

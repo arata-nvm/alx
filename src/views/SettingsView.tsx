@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { importFromTwins } from "@/models/importFromTwins";
 import { CourseTags } from "@/models/courseTag";
+import { persistKey } from "@/hooks/persistState";
 
 export const SettingsView: FC<{
   courseTags: CourseTags;
@@ -20,7 +21,7 @@ export const SettingsView: FC<{
       <h2>データのエクスポート・インポート</h2>
       <div>
         <h3>エクスポート</h3>
-        <Textarea value={localStorage.getItem("courseTags") ?? ""} readOnly />
+        <Textarea value={localStorage.getItem(persistKey) ?? ""} readOnly />
       </div>
       <div className="flex flex-col gap-1">
         <h3>インポート</h3>
@@ -35,7 +36,7 @@ export const SettingsView: FC<{
               alert("インポートするデータが空です");
               return;
             }
-            localStorage.setItem("courseTags", importData);
+            localStorage.setItem(persistKey, importData);
             window.location.reload();
           }}
         >

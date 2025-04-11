@@ -9,7 +9,7 @@ import { Toaster } from "./components/ui/sonner.tsx";
 import { SettingsView } from "./views/SettingsView.tsx";
 
 export default function App() {
-  const [courseTags, setCourseTags] = usePersistState("courseTags", new Map());
+  const [courseTags, setCourseTags] = usePersistState(new Map());
 
   return (
     <div className="xl:container">
