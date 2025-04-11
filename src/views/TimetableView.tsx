@@ -15,6 +15,7 @@ import {
   sortTimetableViewItems,
   TimetableViewItem,
 } from "@/models/timetable";
+import { cn } from "@/lib/utils";
 
 export const TimetableView: FC<{
   selectedCourses: SelectedCourses;
@@ -77,14 +78,17 @@ const Timetable: FC<{
           <TableRow key={period}>
             <TableCell>{period}</TableCell>
             {courseDayValues.map((day) => (
-              <TableCell key={day}>
+              <TableCell key={day} className="align-top">
                 {item
                   .get(day)
                   ?.get(period)
                   ?.map((course) => (
-                    <p className={tagColors[course.tag]}>
-                      {course.code} {course.name}({course.standardYear})
-                    </p>
+                    <div className={cn(tagColors[course.tag], "my-2")}>
+                      <p className="text-xs">{course.code}</p>
+                      <p className="-my-1">
+                        {course.name}({course.standardYear})
+                      </p>
+                    </div>
                   ))}
               </TableCell>
             ))}
