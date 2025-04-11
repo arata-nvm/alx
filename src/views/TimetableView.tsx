@@ -85,12 +85,12 @@ const Timetable: FC<{
                   ?.get(period)
                   ?.map((course) => (
                     <div className={cn(tagColors[course.tag], "my-2")}>
-                      <SyllabusLink code={course.code}>
-                        <p className="text-xs">{course.code}</p>
-                        <p className="-my-1">
+                      <p className="text-xs">{course.code}</p>
+                      <p className="-my-1">
+                        <SyllabusLink code={course.code}>
                           {course.name}({course.standardYear})
-                        </p>
-                      </SyllabusLink>
+                        </SyllabusLink>
+                      </p>
                     </div>
                   ))}
               </TableCell>

@@ -126,9 +126,11 @@ interface CreditedCourseProps {
 function CreditedCourse({ course, onTagClick }: CreditedCourseProps) {
   return (
     <div className="flex items-center justify-start gap-2">
-      <SyllabusLink code={course.code}>
-        <p className="text-xs">{`${course.code} ${course.name} (${course.credit}単位)`}</p>
-      </SyllabusLink>
+      <p className="text-xs">
+        {course.code}{" "}
+        <SyllabusLink code={course.code}>{course.name}</SyllabusLink> (
+        {course.credit}単位)
+      </p>
       <CourseTagSelector
         variant="small"
         tag={course.tag}
