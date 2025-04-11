@@ -29,6 +29,13 @@ interface CourseTagSelectorProps {
 export function CourseTagSelector(
   props: CourseTagSelectorProps & VariantProps<typeof selectorVariants>,
 ) {
+  const tagColors = {
+    enrolled: "bg-green-100",
+    planned: "bg-blue-100",
+    considering: "bg-yellow-100",
+    declined: "bg-white",
+    ineligible: "bg-gray-500",
+  };
   return (
     <RadioGroup
       value={props.tag}
@@ -44,7 +51,7 @@ export function CourseTagSelector(
               className={cn(
                 selectorVariants({ variant: props.variant }),
                 props.tag === tag
-                  ? "bg-white text-black shadow-sm"
+                  ? `${tagColors[tag]} text-black shadow-sm`
                   : "text-gray-500 hover:bg-gray-200",
                 props.disabled &&
                   "cursor-not-allowed opacity-50 hover:bg-transparent",
