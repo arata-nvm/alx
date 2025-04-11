@@ -118,6 +118,13 @@
     @apply bg-background text-foreground;
   }
 
+  h2 {
+    @apply text-2xl font-bold;
+  }
+  h3 {
+    @apply text-xl font-semibold;
+  }
+
   [role="button"],
   button {
     cursor: pointer;

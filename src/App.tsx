@@ -40,7 +40,7 @@ export default function App() {
           <TimetableView courseTags={courseTags} />
         </TabsContent>
         <TabsContent value="5">
-          <SettingsView />
+          <SettingsView courseTags={courseTags} setCourseTags={setCourseTags} />
         </TabsContent>
       </Tabs>
       <Toaster />
