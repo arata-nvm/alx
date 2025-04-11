@@ -6,6 +6,8 @@ import { RequiredCourseView } from "./views/RequiredCourseView";
 import { TimetableView } from "./views/TimetableView.tsx";
 import { usePersistState } from "./hooks/persistState.ts";
 import { Toaster } from "./components/ui/sonner.tsx";
+import { TakingCourseView } from "./views/TakingCourseView.tsx";
+import { ExportImportView } from "./views/ExportImportView.tsx";
 
 export default function App() {
   const [courseTags, setCourseTags] = usePersistState("courseTags", new Map());
@@ -18,6 +20,7 @@ export default function App() {
           <TabsTrigger value="2">卒業判定</TabsTrigger>
           <TabsTrigger value="3">必修科目</TabsTrigger>
           <TabsTrigger value="4">時間割</TabsTrigger>
+          <TabsTrigger value="5">設定</TabsTrigger>
         </TabsList>
         <TabsContent value="1">
           <CourseView courseTags={courseTags} setCourseTags={setCourseTags} />
@@ -33,6 +36,9 @@ export default function App() {
         </TabsContent>
         <TabsContent value="4">
           <TimetableView courseTags={courseTags} />
+        </TabsContent>
+        <TabsContent value="5">
+          <ExportImportView />
         </TabsContent>
       </Tabs>
       <Toaster />
