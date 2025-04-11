@@ -43,8 +43,11 @@ export const TimetableView: FC<{
       <ul>
         {items.others.map((course) => (
           <li key={course.code} className="list-disc">
-            {course.code} {course.name}({course.standardYear}) {course.module}{" "}
-            {course.period}
+            {course.code}{" "}
+            <SyllabusLink code={course.code}>
+              {course.name}({course.standardYear})
+            </SyllabusLink>{" "}
+            {course.module} {course.period}
           </li>
         ))}
       </ul>
