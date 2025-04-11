@@ -1,4 +1,4 @@
-import { Course, loadCourses } from "@/models/course";
+import { loadCourses } from "@/models/course";
 import { FC } from "react";
 import {
   Table,
@@ -8,82 +8,57 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table.tsx";
-import { isTaking, SelectedCourses } from "@/models/selectedCourse";
+import { SelectedCourses } from "@/models/selectedCourse";
+import {
+  courseDayValues,
+  coursePeriodValues,
+  sortTimetableViewItems,
+  TimetableViewItem,
+} from "@/models/timetable";
 
 export const TimetableView: FC<{
   selectedCourses: SelectedCourses;
 }> = ({ selectedCourses }) => {
   const courses = loadCourses();
+  const items = sortTimetableViewItems(courses, selectedCourses);
   return (
     <div className="text-left">
       <h2>春</h2>
       <h3>A</h3>
-      <Timetable
-        courses={courses}
-        selectedCourses={selectedCourses}
-        semester="春"
-        module="A"
-      />
+      <Timetable item={items.springA} />
       <h3>B</h3>
-      <Timetable
-        courses={courses}
-        selectedCourses={selectedCourses}
-        semester="春"
-        module="B"
-      />
+      <Timetable item={items.springB} />
       <h3>C</h3>
-      <Timetable
-        courses={courses}
-        selectedCourses={selectedCourses}
-        semester="春"
-        module="C"
-      />
+      <Timetable item={items.springC} />
       <h2>秋</h2>
       <h3>A</h3>
-      <Timetable
-        courses={courses}
-        selectedCourses={selectedCourses}
-        semester="秋"
-        module="A"
-      />
+      <Timetable item={items.fallA} />
       <h3>B</h3>
-      <Timetable
-        courses={courses}
-        selectedCourses={selectedCourses}
-        semester="秋"
-        module="B"
-      />
+      <Timetable item={items.fallB} />
       <h3>C</h3>
-      <Timetable
-        courses={courses}
-        selectedCourses={selectedCourses}
-        semester="秋"
-        module="C"
-      />
+      <Timetable item={items.fallC} />
       <h2>その他</h2>
       <ul>
-        {courses
-          .filter(
-            (course) =>
-              isTaking(selectedCourses, course.code) &&
-              ["集中", "応談", "随時"].includes(course.period),
-          )
-          .map((course) => (
-            <li key={course.code}>
-              {course.name} {course.module} {course.period}
-            </li>
-          ))}
+        {items.others.map((course) => (
+          <li key={course.code} className="list-disc">
+            {course.name}({course.standardYear}) {course.module} {course.period}
+          </li>
+        ))}
       </ul>
     </div>
   );
 };
 
 const Timetable: FC<{
-  courses: Array<Course>;
-  selectedCourses: SelectedCourses;
-  semester: string;
-  module: string;
-}> = ({ courses, selectedCourses, semester, module }) => {
+  item: TimetableViewItem;
+}> = ({ item }) => {
+  const tagColors = {
+    enrolled: "text-green-800",
+    planned: "text-blue-800",
+    considering: "text-yellow-800",
+    declined: "text-white",
+    ineligible: "text-gray-800",
+  };
   return (
     <Table>
       <TableHeader>
@@ -97,24 +72,18 @@ const Timetable: FC<{
         </TableRow>
       </TableHeader>
       <TableBody>
-        {["1", "2", "3", "4", "5", "6"].map((period) => (
+        {coursePeriodValues.map((period) => (
           <TableRow key={period}>
             <TableCell>{period}</TableCell>
-            {["月", "火", "水", "木", "金"].map((dayOfWeek) => (
-              <TableCell key={dayOfWeek}>
-                {courses
-                  .filter(
-                    (course) =>
-                      course.module.includes(semester) &&
-                      course.module.includes(module) &&
-                      course.period.includes(dayOfWeek) &&
-                      course.period.includes(period) &&
-                      isTaking(selectedCourses, course.code),
-                  )
-                  .map((course) => (
-                    <div>
+            {courseDayValues.map((day) => (
+              <TableCell key={day}>
+                {item
+                  .get(day)
+                  ?.get(period)
+                  ?.map((course) => (
+                    <p className={tagColors[course.tag]}>
                       {course.name}({course.standardYear})
-                    </div>
+                    </p>
                   ))}
               </TableCell>
             ))}
