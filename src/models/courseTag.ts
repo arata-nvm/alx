@@ -15,6 +15,10 @@ export function setCourseTag(
   code: CourseCode,
   tag: CourseTag,
 ): CourseTags {
+  if (tag === "declined") {
+    return deleteCourseTag(_courseTags, code);
+  }
+
   const courseTags = new Map(_courseTags);
   courseTags.set(code, tag);
   return courseTags;
