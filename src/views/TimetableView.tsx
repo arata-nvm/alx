@@ -18,6 +18,14 @@ import {
 import { cn } from "@/lib/utils";
 import { SyllabusLink } from "@/components/SyllabusLink";
 
+const tagColors = {
+  enrolled: "text-green-800",
+  planned: "text-blue-800",
+  considering: "text-yellow-800",
+  declined: "text-white",
+  ineligible: "text-gray-800",
+};
+
 export const TimetableView: FC<{
   selectedCourses: SelectedCourses;
 }> = ({ selectedCourses }) => {
@@ -42,7 +50,10 @@ export const TimetableView: FC<{
       <h2>その他</h2>
       <ul>
         {items.others.map((course) => (
-          <li key={course.code} className="list-disc">
+          <li
+            key={course.code}
+            className={cn(tagColors[course.tag], "list-disc")}
+          >
             {course.code}{" "}
             <SyllabusLink code={course.code}>
               {course.name}({course.standardYear})
@@ -58,13 +69,6 @@ export const TimetableView: FC<{
 const Timetable: FC<{
   item: TimetableViewItem;
 }> = ({ item }) => {
-  const tagColors = {
-    enrolled: "text-green-800",
-    planned: "text-blue-800",
-    considering: "text-yellow-800",
-    declined: "text-white",
-    ineligible: "text-gray-800",
-  };
   return (
     <Table>
       <TableHeader>
