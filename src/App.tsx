@@ -6,7 +6,7 @@ import { RequiredCourseView } from "./views/RequiredCourseView";
 import { TimetableView } from "./views/TimetableView.tsx";
 import { usePersistState } from "./hooks/persistState.ts";
 import { Toaster } from "./components/ui/sonner.tsx";
-import { ExportImportView } from "./views/ExportImportView.tsx";
+import { SettingsView } from "./views/SettingsView.tsx";
 
 export default function App() {
   const [courseTags, setCourseTags] = usePersistState("courseTags", new Map());
@@ -40,7 +40,7 @@ export default function App() {
           <TimetableView courseTags={courseTags} />
         </TabsContent>
         <TabsContent value="5">
-          <ExportImportView />
+          <SettingsView />
         </TabsContent>
       </Tabs>
       <Toaster />

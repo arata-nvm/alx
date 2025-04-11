@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
-export const ExportImportView: FC = () => {
+export const SettingsView: FC = () => {
   const [importData, setImportData] = useState<string>("");
 
   return (
