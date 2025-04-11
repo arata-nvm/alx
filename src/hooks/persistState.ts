@@ -1,7 +1,6 @@
 import { V1Course } from "@/models/course";
 import { CourseTags, setCourseTag } from "@/models/courseTag";
 import { useCallback, useState } from "react";
-import { toast } from "sonner";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function replacer(_: string, value: any) {
