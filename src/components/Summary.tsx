@@ -5,7 +5,10 @@ import {
   inquiryRequirementStatus,
   loadRequirementViewItem,
 } from "@/models/requirementView";
-import { SelectedCourses } from "@/models/selectedCourse";
+import {
+  countCreditCoursesByTag,
+  SelectedCourses,
+} from "@/models/selectedCourse";
 
 export interface SummaryProps {
   selectedCourses: SelectedCourses;
@@ -50,6 +53,20 @@ export function Summary({ selectedCourses }: SummaryProps) {
             <SummaryItem key={item.name} {...item} />
           ))}
         </div>
+        <div className="flex gap-x-4">
+          <SummaryItem
+            name="履修済み"
+            credit={countCreditCoursesByTag(selectedCourses, "enrolled")}
+          />
+          <SummaryItem
+            name="履修する"
+            credit={countCreditCoursesByTag(selectedCourses, "planned")}
+          />
+          <SummaryItem
+            name="興味あり"
+            credit={countCreditCoursesByTag(selectedCourses, "considering")}
+          />
+        </div>
         <SummaryItem {...totalItem} />
       </div>
     </div>
@@ -59,8 +76,8 @@ export function Summary({ selectedCourses }: SummaryProps) {
 interface SummaryItemProps {
   name: string;
   credit: CourseCredit;
-  clampedCredit: CourseCredit;
-  creditRange: CourseCreditRange;
+  clampedCredit?: CourseCredit;
+  creditRange?: CourseCreditRange;
 }
 
 function SummaryItem(props: SummaryItemProps) {
@@ -68,12 +85,22 @@ function SummaryItem(props: SummaryItemProps) {
     <div className="flex flex-col items-start">
       <span className="text-xs">{props.name}</span>
       <div className="flex items-baseline gap-0">
-        <span className="text-2xl">{props.clampedCredit}</span>
-        <span className="text-md">({props.credit})</span>
-        <span className="text-md">/</span>
-        <span className="text-md">
-          <FormatCourseCreditRange range={props.creditRange} />
-        </span>
+        {props.clampedCredit ? (
+          <>
+            <span className="text-2xl">{props.clampedCredit}</span>
+            <span className="text-md">({props.credit})</span>
+          </>
+        ) : (
+          <span className="text-2xl">{props.credit}</span>
+        )}
+        {props.creditRange && (
+          <>
+            <span className="text-md">/</span>
+            <span className="text-md">
+              <FormatCourseCreditRange range={props.creditRange} />
+            </span>
+          </>
+        )}
       </div>
     </div>
   );

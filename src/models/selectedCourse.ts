@@ -113,3 +113,13 @@ export function interestedCourses(
     isInterested(selectedCourses, course.code),
   );
 }
+
+export function countCreditCoursesByTag(
+  selectedCourses: SelectedCourses,
+  tag: CourseTag,
+): number {
+  return Array.from(selectedCourses.values())
+    .filter((course) => course.tag === tag)
+    .map((course) => course.credit)
+    .reduce((acc, credit) => acc + credit, 0);
+}
