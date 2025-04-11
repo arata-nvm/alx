@@ -1,4 +1,4 @@
-import kdb from "@/resources/kdb.json";
+import kdb from "@/resources/kdb2025.json";
 
 export type CourseCode = string;
 export type CourseName = string;

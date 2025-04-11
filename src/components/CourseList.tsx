@@ -32,7 +32,7 @@ function CourseListItem(props: CourseListItemProps) {
   return (
     <div className={`flex items-center border-l-4 px-1 ${style}`}>
       <a
-        href={`https://kdb.tsukuba.ac.jp/syllabi/2023/${props.item.code}/jpn`}
+        href={`https://kdb.tsukuba.ac.jp/syllabi/2025/${props.item.code}/jpn`}
         target="_blank"
       >
         <ExternalLink />
