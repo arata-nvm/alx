@@ -15,7 +15,7 @@ export const TimetableView: FC<{
 }> = ({ selectedCourses }) => {
   const courses = loadCourses();
   return (
-    <div>
+    <div className="text-left">
       <h2>春</h2>
       <h3>A</h3>
       <Timetable
@@ -60,6 +60,20 @@ export const TimetableView: FC<{
         semester="秋"
         module="C"
       />
+      <h2>その他</h2>
+      <ul>
+        {courses
+          .filter(
+            (course) =>
+              isTaking(selectedCourses, course.code) &&
+              ["集中", "応談", "随時"].includes(course.period),
+          )
+          .map((course) => (
+            <li key={course.code}>
+              {course.name} {course.module} {course.period}
+            </li>
+          ))}
+      </ul>
     </div>
   );
 };
