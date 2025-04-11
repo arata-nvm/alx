@@ -44,3 +44,11 @@ export function isTaking(courseTags: CourseTags, code: CourseCode): boolean {
   const tag = getCourseTag(courseTags, code);
   return tag === "enrolled" || tag === "planned";
 }
+
+export function isInterested(
+  courseTags: CourseTags,
+  code: CourseCode,
+): boolean {
+  const tag = getCourseTag(courseTags, code);
+  return tag === "enrolled" || tag === "planned" || tag === "considering";
+}

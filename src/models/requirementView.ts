@@ -1,6 +1,6 @@
 import requirement from "@/resources/coins23_requirement.json";
 import { Course, CourseCode, CourseCredit } from "./course";
-import { CourseTags, isTaking } from "./courseTag";
+import { CourseTags, isInterested, isTaking } from "./courseTag";
 
 export type RequirementViewItem = {
   name: string;
@@ -20,7 +20,7 @@ export type RequirementStatus = {
   credit: CourseCredit;
   clampedCredit: CourseCredit;
   creditRange: CourseCreditRange;
-  courseNames: Array<string>;
+  creditedCourses: Array<Course>;
   children: Array<RequirementStatus>;
 };
 
@@ -37,7 +37,7 @@ export function inquiryRequirementStatus(
   if (!consumedCourses) consumedCourses = new Set();
 
   let totalCredit = 0;
-  const courseNames = [];
+  const creditedCourses = [];
 
   const collectedCourses = collectCourses(
     item,
@@ -46,8 +46,10 @@ export function inquiryRequirementStatus(
     consumedCourses,
   );
   for (const course of collectedCourses) {
-    totalCredit += course.credit;
-    courseNames.push(course.name);
+    if (isTaking(courseTags, course.code)) {
+      totalCredit += course.credit;
+    }
+    creditedCourses.push(course);
     consumedCourses.add(course.code);
   }
 
@@ -75,7 +77,7 @@ export function inquiryRequirementStatus(
 
   return {
     name: item.name,
-    courseNames,
+    creditedCourses,
     credit: totalCredit,
     clampedCredit: clampCourseCredit(totalClampedCredit, item.creditRange),
     creditRange: item.creditRange,
@@ -95,7 +97,7 @@ export function collectCourses(
     collected.push(
       ...courses.filter(
         (course) =>
-          isTaking(courseTags, course.code) &&
+          isInterested(courseTags, course.code) &&
           item.courseList?.indexOf(course.code) != -1 &&
           !consumedCourses.has(course.code),
       ),
@@ -107,7 +109,7 @@ export function collectCourses(
     collected.push(
       ...courses.filter(
         (course) =>
-          isTaking(courseTags, course.code) &&
+          isInterested(courseTags, course.code) &&
           regex.test(course.code) &&
           !consumedCourses.has(course.code),
       ),

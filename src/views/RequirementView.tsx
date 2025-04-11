@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { loadCourses } from "@/models/course";
+import { Course, CourseCode, loadCourses } from "@/models/course";
 import {
   inquiryRequirementStatus,
   RequirementStatus,
@@ -14,16 +14,27 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { FormatCourseCreditRange, FormatJudgement } from "@/components/Format";
-import { CourseTags } from "@/models/courseTag";
+import { CourseTags, getCourseTag, setCourseTag } from "@/models/courseTag";
+import { CourseTagSelector } from "@/components/CourseTagSelector";
+import { CourseViewItemTag } from "@/models/courseView";
 
 export interface RequirementViewProps {
   courseTags: CourseTags;
+  setCourseTags: (courses: CourseTags) => void;
 }
 
-export function RequirementView({ courseTags }: RequirementViewProps) {
+export function RequirementView({
+  courseTags,
+  setCourseTags,
+}: RequirementViewProps) {
   const courses = loadCourses();
   const item = loadRequirementViewItem();
   const status = inquiryRequirementStatus(item, courses, courseTags);
+  const onTagClick = (code: CourseCode, newTag: CourseViewItemTag) => {
+    if (newTag === "ineligible") return;
+    setCourseTags(setCourseTag(courseTags, code, newTag));
+  };
+
   return (
     <Table>
       <TableHeader>
@@ -34,16 +45,23 @@ export function RequirementView({ courseTags }: RequirementViewProps) {
           <TableHead>判定</TableHead>
         </TableRow>
       </TableHeader>
-      <TableBody>{genInnerRequirementView(status, 0)}</TableBody>
+      <TableBody>
+        {genInnerRequirementView(status, courseTags, onTagClick, 0)}
+      </TableBody>
     </Table>
   );
 }
 
-function genInnerRequirementView(status: RequirementStatus, depth: number) {
+function genInnerRequirementView(
+  status: RequirementStatus,
+  courseTags: CourseTags,
+  onTagClick: (code: CourseCode, newTag: CourseViewItemTag) => void,
+  depth: number,
+) {
   let children: Array<ReactNode> = [];
   if (status.children) {
     children = status.children.map((child) =>
-      genInnerRequirementView(child, depth + 1),
+      genInnerRequirementView(child, courseTags, onTagClick, depth + 1),
     );
   }
 
@@ -53,7 +71,9 @@ function genInnerRequirementView(status: RequirementStatus, depth: number) {
         <TableCell>
           <RequirementClass
             name={status.name}
-            courseNames={status.courseNames}
+            creditedCourses={status.creditedCourses}
+            courseTags={courseTags}
+            onTagClick={onTagClick}
             depth={depth}
           />
         </TableCell>
@@ -75,16 +95,56 @@ function genInnerRequirementView(status: RequirementStatus, depth: number) {
 
 interface RequirementClassProps {
   name: string;
-  courseNames: Array<string>;
+  creditedCourses: Array<Course>;
+  courseTags: CourseTags;
+  onTagClick: (code: CourseCode, newTag: CourseViewItemTag) => void;
   depth: number;
 }
 
-function RequirementClass({ name, courseNames, depth }: RequirementClassProps) {
+function RequirementClass({
+  name,
+  creditedCourses,
+  courseTags,
+  onTagClick,
+  depth,
+}: RequirementClassProps) {
   const indents = ["", "ml-4", "ml-8", "ml-12", "ml-16", "ml-20"];
   return (
     <div className={indents[depth]}>
       <p className="font-semibold">{name}</p>
-      <p className="text-xs">{courseNames.join(", ")}</p>
+      <div className="flex flex-col gap-1">
+        {creditedCourses.map((course) => (
+          <CreditedCourse
+            course={course}
+            courseTags={courseTags}
+            onTagClick={onTagClick}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+interface CreditedCourseProps {
+  course: Course;
+  courseTags: CourseTags;
+  onTagClick: (code: CourseCode, newTag: CourseViewItemTag) => void;
+}
+
+function CreditedCourse({
+  course,
+  courseTags,
+  onTagClick,
+}: CreditedCourseProps) {
+  return (
+    <div className="flex items-center justify-start gap-2">
+      <p className="text-xs">{`${course.code} ${course.name} (${course.credit}単位)`}</p>
+      <CourseTagSelector
+        variant="small"
+        tag={getCourseTag(courseTags, course.code)}
+        disabled={false}
+        onClick={(newTag) => onTagClick(course.code, newTag)}
+      />
     </div>
   );
 }

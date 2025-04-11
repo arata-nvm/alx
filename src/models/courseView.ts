@@ -1,12 +1,6 @@
 import courseViewFilters from "@/resources/coins23_view.json";
 import { Course, CourseCode, CourseName } from "./course";
-import {
-  CourseTag,
-  CourseTags,
-  courseTagValues,
-  getCourseTag,
-  isTaking,
-} from "./courseTag";
+import { CourseTag, CourseTags, getCourseTag, isTaking } from "./courseTag";
 
 type CourseViewFilter = {
   name: CourseName;

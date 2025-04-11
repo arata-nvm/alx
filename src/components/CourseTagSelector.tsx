@@ -3,6 +3,22 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 import { courseTagValues } from "@/models/courseTag";
 import { CourseViewItemTag } from "@/models/courseView";
+import { cva, VariantProps } from "class-variance-authority";
+
+const selectorVariants = cva(
+  "flex cursor-pointer items-center justify-center rounded-lg px-2 py-[3px] font-medium text-nowrap transition-all",
+  {
+    variants: {
+      variant: {
+        base: "text-sm",
+        small: " text-xs ",
+      },
+    },
+    defaultVariants: {
+      variant: "base",
+    },
+  },
+);
 
 interface CourseTagSelectorProps {
   tag: CourseViewItemTag;
@@ -10,21 +26,23 @@ interface CourseTagSelectorProps {
   onClick: (newTag: CourseViewItemTag) => void;
 }
 
-export function CourseTagSelector(props: CourseTagSelectorProps) {
+export function CourseTagSelector(
+  props: CourseTagSelectorProps & VariantProps<typeof selectorVariants>,
+) {
   return (
     <RadioGroup
       value={props.tag}
       onValueChange={(newValue: CourseViewItemTag) => {
         props.onClick(newValue);
       }}
-      className="flex w-fit max-w-md rounded-lg bg-gray-100 p-1"
+      className="inline-block w-fit max-w-md rounded-lg bg-gray-100 p-1"
     >
       <div className="flex w-full gap-1">
         {courseTagValues.map((tag) => (
           <div key={tag} className="relative flex-1">
             <Label
               className={cn(
-                "flex cursor-pointer items-center justify-center rounded-lg px-2 py-[3px] text-sm font-medium text-nowrap transition-all",
+                selectorVariants({ variant: props.variant }),
                 props.tag === tag
                   ? "bg-white text-black shadow-sm"
                   : "text-gray-500 hover:bg-gray-200",
