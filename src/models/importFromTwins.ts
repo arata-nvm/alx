@@ -30,7 +30,7 @@ export function importFromTwins(
     let tag: CourseTag;
     if (["P", "A+", "A", "B", "C", "認"].includes(courseGrade)) {
       tag = "enrolled";
-    } else if (["履修中", "D"].includes(courseGrade)) {
+    } else if (["履修中", "D", "F"].includes(courseGrade)) {
       tag = "planned";
     } else {
       return;
