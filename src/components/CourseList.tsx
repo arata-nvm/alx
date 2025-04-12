@@ -3,6 +3,7 @@ import { Course } from "@/models/course";
 import { CourseViewItem, CourseViewItemTag } from "@/models/courseView";
 import { CourseTagSelector } from "./CourseTagSelector";
 import { SyllabusLink } from "./SyllabusLink";
+import { cn } from "@/lib/utils";
 
 export interface CourseListProps {
   items: Array<CourseViewItem>;
@@ -29,9 +30,21 @@ interface CourseListItemProps {
 }
 
 function CourseListItem(props: CourseListItemProps) {
-  const style = tagToColor(props.item.tag);
+  const tagColors = {
+    enrolled: "border-green-200",
+    planned: "border-blue-200",
+    considering: "border-yellow-200",
+    declined: "",
+    ineligible: "border-gray-200 bg-gray-100",
+  };
+
   return (
-    <div className={`flex items-center border-l-4 px-1 ${style}`}>
+    <div
+      className={cn(
+        "flex items-center border-l-4 px-1",
+        tagColors[props.item.tag],
+      )}
+    >
       <SyllabusLink code={props.item.code}>
         <ExternalLink />
       </SyllabusLink>
@@ -64,8 +77,4 @@ function CourseListItem(props: CourseListItemProps) {
       </div>
     </div>
   );
-}
-
-function tagToColor(tag: CourseViewItemTag): string {
-  return tag === "ineligible" ? "border-gray-200 bg-gray-100" : "";
 }
