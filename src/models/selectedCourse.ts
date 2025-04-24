@@ -123,3 +123,14 @@ export function countCreditCoursesByTag(
     .map((course) => course.credit)
     .reduce((acc, credit) => acc + credit, 0);
 }
+
+export function filterByTag(
+  selectedCourses: SelectedCourses,
+  tag: CourseTag,
+): SelectedCourses {
+  return new Map(
+    Array.from(selectedCourses.values())
+      .filter((course) => course.tag === tag)
+      .map((course) => [course.code, course]),
+  );
+}

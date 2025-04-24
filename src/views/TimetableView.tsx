@@ -1,5 +1,5 @@
 import { loadCourses } from "@/models/course";
-import { FC } from "react";
+import { FC, useState } from "react";
 import {
   Table,
   TableBody,
@@ -8,7 +8,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table.tsx";
-import { SelectedCourses } from "@/models/selectedCourse";
+import {
+  CourseTag,
+  filterByTag,
+  SelectedCourses,
+} from "@/models/selectedCourse";
 import {
   courseDayValues,
   coursePeriodValues,
@@ -17,6 +21,13 @@ import {
 } from "@/models/timetable";
 import { cn } from "@/lib/utils";
 import { SyllabusLink } from "@/components/SyllabusLink";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const tagColors = {
   enrolled: "text-green-800",
@@ -26,13 +37,46 @@ const tagColors = {
   ineligible: "text-gray-800",
 };
 
+type QueryOption = CourseTag | "all";
+
+const queryOptions = [
+  ["all", "すべて"],
+  ["enrolled", "履修済み"],
+  ["planned", "履修する"],
+  ["considering", "興味あり"],
+];
+
 export const TimetableView: FC<{
   selectedCourses: SelectedCourses;
 }> = ({ selectedCourses }) => {
+  const [queryOption, setQueryOption] = useState<QueryOption>("all");
+
   const courses = loadCourses();
-  const items = sortTimetableViewItems(courses, selectedCourses);
+  const filteredSelectedCourses =
+    queryOption === "all"
+      ? selectedCourses
+      : filterByTag(selectedCourses, queryOption);
+  const items = sortTimetableViewItems(courses, filteredSelectedCourses);
+
   return (
     <div className="text-left">
+      <div>
+        <Select
+          onValueChange={(value: CourseTag) => setQueryOption(value)}
+          defaultValue="all"
+        >
+          <SelectTrigger>
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            {queryOptions.map((option) => (
+              <SelectItem key={option[0]} value={option[0]}>
+                {option[1]}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
       <h2>春</h2>
       <h3>A</h3>
       <Timetable item={items.springA} />
