@@ -1,5 +1,6 @@
 import {
   CourseTag,
+  getSelectedCourseTag,
   SelectedCourses,
   setSelectedCourseRaw,
 } from "./selectedCourse";
@@ -35,6 +36,9 @@ export function importFromTwins(
     } else {
       return;
     }
+
+    if (getSelectedCourseTag(newSelectedCourses, courseCode) == "enrolled")
+      return;
 
     newSelectedCourses = setSelectedCourseRaw(newSelectedCourses, {
       code: courseCode,
