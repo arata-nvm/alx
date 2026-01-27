@@ -37,7 +37,7 @@ export function importFromTwins(
       return;
     }
 
-    if (getSelectedCourseTag(newSelectedCourses, courseCode) == "enrolled")
+    if (getSelectedCourseTag(newSelectedCourses, courseCode) === "enrolled")
       return;
 
     newSelectedCourses = setSelectedCourseRaw(newSelectedCourses, {
