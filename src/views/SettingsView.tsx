@@ -2,6 +2,7 @@ import { FC, useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { importFromTwins } from "@/models/importFromTwins";
 import { persistKey } from "@/hooks/persistState";
@@ -15,6 +16,7 @@ export const SettingsView: FC<{
   const [file, setFile] = useState<File | undefined>(undefined);
   const [importedCourses, setImportedCourses] = useState<string[]>([]);
   const [failedCourses, setFailedCourses] = useState<string[]>([]);
+  const [skipFailed, setSkipFailed] = useState<boolean>(false);
 
   return (
     <div className="flex flex-col gap-4 text-left">
@@ -52,6 +54,17 @@ export const SettingsView: FC<{
           accept=".csv"
           onChange={(e) => setFile(e.target.files?.[0])}
         />
+        <div className="my-2 flex items-center gap-2">
+          <Label htmlFor="skip-failed-toggle">D/Fは無視する</Label>
+          <label>
+            <input
+              id="skip-failed-toggle"
+              type="checkbox"
+              checked={skipFailed}
+              onChange={(e) => setSkipFailed(e.target.checked)}
+            />
+          </label>
+        </div>
         <Button
           className="my-1 w-fit"
           onClick={() => {
@@ -68,7 +81,7 @@ export const SettingsView: FC<{
                 return;
               }
 
-              const result = importFromTwins(text, selectedCourses);
+              const result = importFromTwins(text, selectedCourses, skipFailed);
               setSelectedCourses(result.selectedCourses);
               setImportedCourses(result.importedCourses);
               setFailedCourses(result.failedCourses);

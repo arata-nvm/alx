@@ -14,11 +14,13 @@ export interface ImportResult {
 export function importFromTwins(
   text: string,
   selectedCourses: SelectedCourses,
+  skipFailed: boolean,
 ): ImportResult {
   const data = csvToArray(text);
 
   let newSelectedCourses = selectedCourses;
   const importedCourses: string[] = [];
+  const excludedCourses: string[] = [];
   data.forEach((row) => {
     if (row.length < 8) return;
     const courseCode = row[2];
@@ -27,6 +29,11 @@ export function importFromTwins(
     const courseGrade = row[7];
 
     if (courseCode.trim() === "") return;
+
+    if (skipFailed && ["D", "F"].includes(courseGrade)) {
+      excludedCourses.push(courseName);
+      return;
+    }
 
     let tag: CourseTag;
     if (["P", "A+", "A", "B", "C", "認"].includes(courseGrade)) {
@@ -54,7 +61,12 @@ export function importFromTwins(
     importedCourses: importedCourses,
     failedCourses: data
       .map((row) => row[3])
-      .filter((courseName) => !importedCourses.includes(courseName)),
+      .filter(
+        (courseName) =>
+          courseName &&
+          !importedCourses.includes(courseName) &&
+          !excludedCourses.includes(courseName),
+      ),
   };
 }
 
