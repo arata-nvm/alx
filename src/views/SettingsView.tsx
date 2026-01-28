@@ -56,14 +56,12 @@ export const SettingsView: FC<{
         />
         <div className="my-2 flex items-center gap-2">
           <Label htmlFor="skip-failed-toggle">D/Fは無視する</Label>
-          <label>
-            <input
-              id="skip-failed-toggle"
-              type="checkbox"
-              checked={skipFailed}
-              onChange={(e) => setSkipFailed(e.target.checked)}
-            />
-          </label>
+          <input
+            id="skip-failed-toggle"
+            type="checkbox"
+            checked={skipFailed}
+            onChange={(e) => setSkipFailed(e.target.checked)}
+          />
         </div>
         <Button
           className="my-1 w-fit"
