@@ -339,7 +339,7 @@
                     "min": 4,
                     "max": 4
                   },
-                  "courseFilter": "^31[HJKL]G(0[1-9]|1[0-2])2$"
+                  "courseFilter": "^31[HJKL](G|H)(0[1-9]|1[0-2])2$"
                 },
                 {
                   "name": "情報",
