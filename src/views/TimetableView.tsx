@@ -49,7 +49,7 @@ const queryOptions = [
 export const TimetableView: FC<{
   selectedCourses: SelectedCourses;
 }> = ({ selectedCourses }) => {
-  const [queryOption, setQueryOption] = useState<QueryOption>("all");
+  const [queryOption, setQueryOption] = useState<QueryOption>("planned");
 
   const courses = loadCourses();
   const filteredSelectedCourses =
@@ -62,8 +62,8 @@ export const TimetableView: FC<{
     <div className="text-left">
       <div>
         <Select
-          onValueChange={(value: CourseTag) => setQueryOption(value)}
-          defaultValue="all"
+          onValueChange={(value: QueryOption) => setQueryOption(value)}
+          defaultValue="planned"
         >
           <SelectTrigger>
             <SelectValue />
