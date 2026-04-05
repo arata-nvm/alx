@@ -1,10 +1,19 @@
-import kdb from "@/resources/kdb2025.json";
+import kdb from "@/resources/kdb2026.json";
 
 export type CourseCode = string;
 export type CourseName = string;
 export type CourseCredit = number;
 export type CourseStandardYear = string;
 export type V1CourseStatus = "default" | "take" | "invalid";
+
+type KdbCourse = {
+  科目番号: CourseCode;
+  科目名: CourseName;
+  単位数: string;
+  標準履修年次: CourseStandardYear;
+  実施学期: string;
+  曜時限: string;
+};
 
 export type Course = {
   code: CourseCode;
@@ -25,13 +34,15 @@ export type V1Course = {
   status: V1CourseStatus;
 };
 
+const courses: Array<Course> = (kdb as Array<KdbCourse>).map((course) => ({
+  code: course.科目番号,
+  name: course.科目名,
+  credit: Number(course.単位数),
+  standardYear: course.標準履修年次,
+  module: course.実施学期,
+  period: course.曜時限,
+}));
+
 export function loadCourses(): Array<Course> {
-  return (kdb as { subject: Array<Array<string>> }).subject.map((course) => ({
-    code: course[0],
-    name: course[1],
-    credit: Number(course[3]),
-    standardYear: course[4],
-    module: course[5],
-    period: course[6],
-  }));
+  return courses;
 }
