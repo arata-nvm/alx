@@ -55,10 +55,7 @@ export default tseslint.config({
 
 ## License
 
-This project includes source files from the [alternative-tsukuba-kdb](https://github.com/Make-IT-TSUKUBA/alternative-tsukuba-kdb), which is licensed under the Mozilla Public License 2.0.
+This project includes source files from the [kdb-crawler](https://github.com/s7tya/kdb-crawler).
 
-The following files are covered by the MPL-2.0 license:
-
-- `src/resources/kdb2025.json`
-
-The full text of the Mozilla Public License 2.0 can be found in the `LICENSE` file, or at https://www.mozilla.org/MPL/2.0/.
+The following files are included:
+- `src/resources/kdb2026.json`
