@@ -88,13 +88,36 @@ function isCourseInModule(
   semester: CourseSemester,
   module: CourseModule,
 ): boolean {
-  return course.module.includes(semester) && course.module.includes(module);
+  return getCourseModuleKeys(course).has(`${semester}${module}`);
 }
 
-export type CourseDay = "月" | "火" | "水" | "木" | "金";
-export const courseDayValues: Array<CourseDay> = ["月", "火", "水", "木", "金"];
+function getCourseModuleKeys(course: Course): Set<string> {
+  const keys = new Set<string>();
+  const normalized = course.module.replace(/\s+/g, "");
+  for (const match of normalized.matchAll(/(春|秋)(ABC|AB|BC|A|B|C|学期)/g)) {
+    const semester = match[1] as CourseSemester;
+    const modules =
+      match[2] === "学期"
+        ? courseModuleValues
+        : (match[2].split("") as Array<CourseModule>);
+    for (const module of modules) {
+      keys.add(`${semester}${module}`);
+    }
+  }
+  return keys;
+}
 
-export type CoursePeriod = "1" | "2" | "3" | "4" | "5" | "6";
+export type CourseDay = "月" | "火" | "水" | "木" | "金" | "土";
+export const courseDayValues: Array<CourseDay> = [
+  "月",
+  "火",
+  "水",
+  "木",
+  "金",
+  "土",
+];
+
+export type CoursePeriod = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8";
 export const coursePeriodValues: Array<CoursePeriod> = [
   "1",
   "2",
@@ -102,6 +125,8 @@ export const coursePeriodValues: Array<CoursePeriod> = [
   "4",
   "5",
   "6",
+  "7",
+  "8",
 ];
 
 function isCourseInPeriod(
@@ -109,24 +134,36 @@ function isCourseInPeriod(
   day: CourseDay,
   period: CoursePeriod,
 ): boolean {
+  return course.period
+    .split(/\s*\n\s*/)
+    .map((value) => value.trim())
+    .filter(Boolean)
+    .some((value) => isCourseInPeriodValue(value, day, period));
+}
+
+function isCourseInPeriodValue(
+  coursePeriod: string,
+  day: CourseDay,
+  period: CoursePeriod,
+): boolean {
   let match: RegExpExecArray | null;
 
   // 月3
-  match = /^([月火水木金])(\d)$/.exec(course.period);
+  match = /^([月火水木金土])(\d)$/.exec(coursePeriod);
   if (match) {
     const [, dayStr, periodStr] = match;
     return day === dayStr && period === periodStr;
   }
 
   // 木3,4
-  match = /^([月火水木金])(\d),(\d)$/.exec(course.period);
+  match = /^([月火水木金土])(\d),(\d)$/.exec(coursePeriod);
   if (match) {
     const [, dayStr, period1Str, period2Str] = match;
     return day === dayStr && (period === period1Str || period === period2Str);
   }
 
   // 月6-8
-  match = /^([月火水木金])(\d)-(\d)$/.exec(course.period);
+  match = /^([月火水木金土])(\d)-(\d)$/.exec(coursePeriod);
   if (match) {
     const [, dayStr, period1Str, period2Str] = match;
     const periodStart = parseInt(period1Str, 10);
@@ -138,7 +175,7 @@ function isCourseInPeriod(
   }
 
   // 火・金3,4
-  match = /^([月火水木金])・([月火水木金])(\d),(\d)$/.exec(course.period);
+  match = /^([月火水木金土])・([月火水木金土])(\d),(\d)$/.exec(coursePeriod);
   if (match) {
     const [, day1Str, day2Str, period1Str, period2Str] = match;
     return (
@@ -148,8 +185,8 @@ function isCourseInPeriod(
   }
 
   // 水3,4,金5,6
-  match = /^([月火水木金])(\d),(\d),([月火水木金])(\d),(\d)$/.exec(
-    course.period,
+  match = /^([月火水木金土])(\d),(\d),([月火水木金土])(\d),(\d)$/.exec(
+    coursePeriod,
   );
   if (match) {
     const [
@@ -168,8 +205,8 @@ function isCourseInPeriod(
   }
 
   // 火1,2 金5,6
-  match = /^([月火水木金])(\d),(\d) ([月火水木金])(\d),(\d)$/.exec(
-    course.period,
+  match = /^([月火水木金土])(\d),(\d) ([月火水木金土])(\d),(\d)$/.exec(
+    coursePeriod,
   );
   if (match) {
     const [
@@ -188,8 +225,8 @@ function isCourseInPeriod(
   }
 
   // 月3-5 月3,4
-  match = /^([月火水木金])(\d)-(\d) ([月火水木金])(\d),(\d)$/.exec(
-    course.period,
+  match = /^([月火水木金土])(\d)-(\d) ([月火水木金土])(\d),(\d)$/.exec(
+    coursePeriod,
   );
   if (match) {
     const [
@@ -213,7 +250,7 @@ function isCourseInPeriod(
   }
 
   // 金3 金4
-  match = /^([月火水木金])(\d) ([月火水木金])(\d)$/.exec(course.period);
+  match = /^([月火水木金土])(\d) ([月火水木金土])(\d)$/.exec(coursePeriod);
   if (match) {
     const [, day1Str, period1Str, day2Str, period2Str] = match;
     return (

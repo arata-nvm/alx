@@ -118,11 +118,9 @@ const Timetable: FC<{
       <TableHeader>
         <TableRow>
           <TableHead>時限</TableHead>
-          <TableHead>月</TableHead>
-          <TableHead>火</TableHead>
-          <TableHead>水</TableHead>
-          <TableHead>木</TableHead>
-          <TableHead>金</TableHead>
+          {courseDayValues.map((day) => (
+            <TableHead key={day}>{day}</TableHead>
+          ))}
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -135,7 +133,10 @@ const Timetable: FC<{
                   .get(day)
                   ?.get(period)
                   ?.map((course) => (
-                    <div className={cn(tagColors[course.tag], "my-2")}>
+                    <div
+                      key={course.code}
+                      className={cn(tagColors[course.tag], "my-2")}
+                    >
                       <p className="text-xs">{course.code}</p>
                       <p className="-my-1">
                         <SyllabusLink code={course.code}>
