@@ -7,7 +7,7 @@ export const SyllabusLink: FC<{
 }> = ({ code, children }) => {
   return (
     <a
-      href={`https://kdb.tsukuba.ac.jp/syllabi/2025/${code}/jpn`}
+      href={`https://kdb.tsukuba.ac.jp/syllabi/2026/${code}/jpn`}
       target="_blank"
       rel="noopener noreferrer"
     >
