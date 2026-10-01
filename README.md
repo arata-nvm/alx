@@ -53,9 +53,29 @@ export default tseslint.config({
 });
 ```
 
+## KdB データの更新
+
+[kdb-crawler の `dist/kdb.min.json`](https://github.com/s7tya/kdb-crawler/blob/master/dist/kdb.min.json) を取得し、`src/resources/kdb2026.json` に保存します。
+
+ローカルでは次のコマンドで更新できます。インポート処理自体には追加の依存パッケージは不要です。
+
+```sh
+npm run import:kdb
+```
+
+GitHub Actions の `Import KdB` が毎日日本時間 1:30 に実行され、差分がある場合だけビルドを確認してコミット・push します。
+Actions タブの `Run workflow` から手動実行することもできます。
+定期実行を有効にするには、このワークフローをデフォルトブランチに反映してください。ブランチ保護を設定している場合は、Actions による push を許可する必要があります。
+
+取得に失敗した場合、JSON が空の場合、またはアプリが使う項目の形式が不正な場合は更新を中止し、既存のデータを保持します。
+取得元は最新データを配信するため、年度が変わる際は保存先と `src/models/course.ts` のインポート先を合わせて見直してください。
+
+インポート処理のテストは `npm run test:import-kdb` で実行できます。
+
 ## License
 
 This project includes source files from the [kdb-crawler](https://github.com/s7tya/kdb-crawler).
 
 The following files are included:
+
 - `src/resources/kdb2026.json`
